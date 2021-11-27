@@ -73,7 +73,7 @@
                           </div>
 
                           <div class="btn-group">
-                            <button type="button" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$teacher->id}}, this)">
                               <i class="fas fa-trash"></i>
                             </button>
                           </div>
@@ -98,5 +98,50 @@
 @endsection
 
 @section('scripts')
-    
+    <script>
+      function confirmDestroy(id, refranec) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            destroy(id, refranec);
+          }
+        });
+      }
+
+      function destroy (id, refranec) {
+        // masged/admin/teacher/{teacher}
+        axios.delete('/masged/admin/teacher/' + id)
+          .then(function (response) {
+            // handle success
+            console.log(response);
+            refranec.closest('tr').remove();
+            showDeletingResult(response.data);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+            showDeletingResult(error.response.data);
+          })
+          .then(function () {
+            // always executed
+          });
+      }
+
+      function showDeletingResult (data) {
+        Swal.fire({
+          icon: data.icon,
+          title: data.title,
+          text: data.text,
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    </script>
 @endsection

@@ -305,6 +305,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('masged/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('masged/dist/js/adminlte.min.js')}}"></script>
+{{-- SWEET ALERT --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- AXIOS LIBRARY --}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @yield('scripts')
 </body>
 </html>

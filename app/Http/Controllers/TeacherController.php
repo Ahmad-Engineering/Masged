@@ -84,5 +84,20 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+        $isDeleted = $teacher->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'title'=>'Deleted!',
+                'text'=>'Teacher deleted successfully',
+                'icon'=>'success'
+            ]);
+        }else {
+            return response()->json([
+                'title'=>'Failed!',
+                'text'=>'Teacher deleted failed',
+                'icon'=>'error'
+            ]);
+        }
     }
 }
