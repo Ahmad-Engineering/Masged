@@ -3,7 +3,7 @@
 
 @section('title', 'Teachers')
 
-@section('capital-title', 'The Teachers')
+@section('capital-title', 'Teachers')
 @section('home-title', 'Home')
 @section('small-title', 'teachers')
 

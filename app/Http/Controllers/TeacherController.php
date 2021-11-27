@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use Dotenv\Validator;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TeacherController extends Controller
 {
@@ -28,6 +31,9 @@ class TeacherController extends Controller
     public function create()
     {
         //
+        // return response()->view('admin.teacher.create');
+        // echo 'WE ARE IN THE :: CREATE';
+        return response()->view('admin.teacher.create');
     }
 
     /**
@@ -38,7 +44,37 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'first_name' => 'required|string|min:3|max:30',
+            'last_name' => 'required|string|min:3|max:30',
+            'email' => 'required|string|min:3|max:30',
+            'phone' => 'required|string|min:8|max:20',
+            'age' => 'required|integer|min:17|max:80',
+            'active' => 'required|boolean'
+        ]);
         //
+
+        if (!$validator->fails()) {
+            $teacher = new Teacher();
+            $teacher->first_name = $request->get('first_name');
+            $teacher->last_name = $request->get('last_name');
+            $teacher->email = $request->get('email');
+            $teacher->phone = $request->get('phone');
+            $teacher->age = $request->get('age');
+            $teacher->active = $request->get('active');
+            // WE WILL UPDATE IT AGIAN
+            $teacher->gender = 1;
+
+            $isCreated = $teacher->save();
+
+            return response()->json([
+                'message'=> $isCreated ? 'Teacher craeting successfully' : 'Teacher craeting failed'
+            ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message'=>$validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

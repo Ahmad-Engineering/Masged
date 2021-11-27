@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('masged/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('masged/dist/css/adminlte.min.css')}}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{asset('masged/plugins/toastr/toastr.min.css')}}">
   @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -309,6 +311,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {{-- AXIOS LIBRARY --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Toastr -->
+<script src="{{asset('masged/plugins/toastr/toastr.min.js')}}"></script>
 @yield('scripts')
 </body>
 </html>

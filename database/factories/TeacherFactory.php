@@ -21,7 +21,7 @@ class TeacherFactory extends Factory
             'phone'=>$this->faker->phoneNumber(),
             'age'=>$this->faker->numberBetween(17, 80),
             'gender'=>$this->faker->boolean(),
-            'status'=>$this->faker->boolean()
+            'active'=>$this->faker->boolean()
         ];
     }
 }
