@@ -15,6 +15,13 @@ class TeacherFactory extends Factory
     {
         return [
             //
+            'first_name'=>$this->faker->firstName(),
+            'last_name'=>$this->faker->lastName(),
+            'email'=>$this->faker->email,
+            'phone'=>$this->faker->phoneNumber(),
+            'age'=>$this->faker->numberBetween(17, 80),
+            'gender'=>$this->faker->boolean(),
+            'status'=>$this->faker->boolean()
         ];
     }
 }

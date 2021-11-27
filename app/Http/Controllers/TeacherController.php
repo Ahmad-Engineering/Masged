@@ -15,7 +15,9 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        echo 'WE ARE IN THE :: INDEX';
+        // return view('admin.teacher.index');
+        $data = Teacher::all();
+        return response()->view('admin.teacher.index', ['teachers'=>$data]);
     }
 
     /**

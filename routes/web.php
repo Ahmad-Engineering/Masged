@@ -19,6 +19,6 @@ Route::get('/', function () {
 });
 
 Route::prefix('masged/admin/')->group(function () {
-    Route::view('/', 'admin.teacher.index');
+    Route::view('/', 'admin.parent')->name('admin.parent');
     Route::resource('/teacher', TeacherController::class);
 });
