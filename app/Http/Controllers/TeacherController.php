@@ -15,6 +15,7 @@ class TeacherController extends Controller
     public function index()
     {
         //
+        echo 'WE ARE IN THE :: INDEX';
     }
 
     /**

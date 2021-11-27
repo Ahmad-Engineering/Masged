@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('masged/admin/')->group(function () {
+    Route::view('/', 'admin.teacher.index');
+    Route::resource('/teacher', TeacherController::class);
 });
