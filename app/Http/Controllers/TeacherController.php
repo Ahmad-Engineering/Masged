@@ -47,8 +47,8 @@ class TeacherController extends Controller
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
-            'email' => 'required|string|min:3|max:30',
-            'phone' => 'required|string|min:8|max:20',
+            'phone' => 'required|string|min:8|max:20|unique:teachers',
+            'email' => 'required|string|min:3|max:30|unique:teachers',
             'age' => 'required|integer|min:17|max:80',
             'active' => 'required|boolean'
         ]);
@@ -97,6 +97,7 @@ class TeacherController extends Controller
     public function edit(Teacher $teacher)
     {
         //
+        return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
     }
 
     /**
@@ -108,7 +109,34 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
+        $validator = Validator($request->all(), [
+            'first_name' => 'required|string|min:3|max:30',
+            'last_name' => 'required|string|min:3|max:30',
+            'email' => 'required|string|min:3|max:30',
+            'phone' => 'required|string|min:8|max:20',
+            'age' => 'required|integer|min:17|max:80',
+            'active' => 'required|boolean'
+        ]);
         //
+        if (!$validator->fails()) {
+            $teacher->first_name = $request->get('first_name');
+            $teacher->last_name = $request->get('last_name');
+            $teacher->email = $request->get('email');
+            $teacher->phone = $request->get('phone');
+            $teacher->age = $request->get('age');
+            $teacher->active = $request->get('active');
+
+            $isUpdated = $teacher->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Teacher updated successfully' : 'Updating teacher faild',
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+
+        }else{
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

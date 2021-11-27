@@ -67,9 +67,9 @@
 
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-info">
+                            <a href="{{route('teacher.edit', $teacher->id)}}" class="btn btn-info">
                               <i class="fas fa-edit"></i>
-                            </button>
+                            </a>
                           </div>
 
                           <div class="btn-group">
