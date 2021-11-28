@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Masged;
+use Dotenv\Validator;
+use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MasgedController extends Controller
 {
@@ -27,6 +30,7 @@ class MasgedController extends Controller
     public function create()
     {
         //
+        return response()->view('admin.masged.create');
     }
 
     /**
@@ -37,7 +41,28 @@ class MasgedController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'name'=>'required|min:3|max:30',
+            'info'=>'min:0|max:100',
+            'location'=>'required|min:3|max:30'
+        ]);
         //
+        if (!$validator->fails()) {
+            // dd($request->all());
+            $masged = new Masged();
+            $masged->name = $request->get('name');
+            $masged->info = $request->get('info');
+            $masged->location = $request->get('location');
+            $isCreated = $masged->save();
+
+            return response()->json([
+                'message' => $isCreated ? 'Mosque created successfully' : 'Mosque created failed'
+            ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'message'=> $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

@@ -46,6 +46,7 @@
                       <th>Location</th>
                       <th>Craeted at</th>
                       <th>Updated at</th>
+                      <th>Settings</th>
                     </tr>
                   </thead>
                   <tbody>
