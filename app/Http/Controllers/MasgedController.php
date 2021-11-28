@@ -85,6 +85,7 @@ class MasgedController extends Controller
     public function edit(Masged $masged)
     {
         //
+        return response()->view('admin.masged.edit', ['masged'=>$masged]);
     }
 
     /**
@@ -96,7 +97,27 @@ class MasgedController extends Controller
      */
     public function update(Request $request, Masged $masged)
     {
+        $validator = Validator($request->all(), [
+            'name'=>'required|min:3|max:30',
+            'info'=>'min:0|max:100',
+            'location'=>'required|min:3|max:30'
+        ]);
         //
+
+        if (!$validator->fails()) {
+            $masged->name = $request->get('name');
+            $masged->info = $request->get('info');
+            $masged->location = $request->get('location');
+            $isUpdated = $masged->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Masged updated successfully' : 'Masged updated failed'
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

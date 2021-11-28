@@ -16,7 +16,7 @@ class CreateMasgedsTable extends Migration
         Schema::create('masgeds', function (Blueprint $table) {
             $table->id();
             $table->string('name', 45);
-            $table->string('info', 100);
+            $table->string('info', 100)->nullable();
             $table->string('location', 50);
             $table->timestamps();
         });

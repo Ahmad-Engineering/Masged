@@ -60,7 +60,7 @@
                         <td>{{$masged->updated_at}}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="#" class="btn btn-info">
+                            <a href="{{route('masged.edit', $masged->id)}}" class="btn btn-info">
                               <i class="fas fa-edit"></i>
                             </a>
                           </div>
