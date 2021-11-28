@@ -218,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Inactive Page</p>
                 </a>
               </li>
-              <li class="nav-header">EXAMPLES</li>
+              <li class="nav-header">Local Management</li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -236,6 +236,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="nav-item">
                     <a href="{{route('teacher.create')}}" class="nav-link">
+                      <i class="far fa-plus-square nav-icon"></i>
+                      <p>Craete</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-header">General Management</li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-mosque"></i>
+                  <p>
+                    Masged
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('masged.index')}}" class="nav-link">
+                      <i class="fas fa-list-ul nav-icon"></i>
+                      <p>Browos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
                       <i class="far fa-plus-square nav-icon"></i>
                       <p>Craete</p>
                     </a>
