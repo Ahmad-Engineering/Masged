@@ -66,7 +66,7 @@
                           </div>
 
                           <div class="btn-group">
-                            <button type="button" class="btn btn-danger" onclick="">
+                            <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$masged->id}}, this)">
                               <i class="fas fa-trash"></i>
                             </button>
                           </div>
@@ -110,7 +110,7 @@
 
       function destroy (id, refranec) {
         // masged/admin/teacher/{teacher}
-        axios.delete('/masged/admin/teacher/' + id)
+        axios.delete('/masged/admin/masged/' + id)
           .then(function (response) {
             // handle success
             console.log(response);

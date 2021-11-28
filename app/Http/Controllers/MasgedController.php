@@ -108,5 +108,20 @@ class MasgedController extends Controller
     public function destroy(Masged $masged)
     {
         //
+        $isDeleted = $masged->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'title' => 'Deleted!',
+                'text' => 'Deleted mosque successfully',
+                'icon' => 'success',
+            ]);
+        }else {
+            return response()->json([
+                'title' => 'Failed!',
+                'text' => 'Deleted mosque failed',
+                'icon' => 'error',
+            ]);
+        }
     }
 }
