@@ -20,11 +20,11 @@ class Teacher extends Model
         }
     }
 
-    function getSexAttribute() {
-        if($this->gender) {
-            return 'Male';
-        }else{
-            return 'Female';
-        }
-    }
+    // function getSexAttribute() {
+    //     if($this->gender) {
+    //         return 'Male';
+    //     }else{
+    //         return 'Female';
+    //     }
+    // }
 }

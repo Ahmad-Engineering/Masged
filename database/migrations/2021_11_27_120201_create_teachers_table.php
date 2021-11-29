@@ -20,7 +20,7 @@ class CreateTeachersTable extends Migration
             $table->string('email', 45)->nullable();
             $table->string('phone', 20)->unique();
             $table->integer('age');
-            $table->string('gender', 1);
+            $table->enum('gender', ['Male', 'Female']);
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

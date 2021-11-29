@@ -60,8 +60,16 @@
                         <td>{{$teacher->phone}}</td>
                         <td>{{$teacher->email}}</td>
                         <td>{{$teacher->age}}</td>
-                        <td>{{$teacher->status}}</td>
-                        <td>{{$teacher->sex}}</td>
+                        <td>
+                          @if ($teacher->active)
+                            <span class="badge bg-success">{{$teacher->status}}</span>
+                          
+                            @else
+                            <span class="badge bg-danger">{{$teacher->status}}</span>
+                          @endif
+                        </td>
+                        <td>{{$teacher->gender}}</td>
+                        {{-- <td>{{$teacher->sex}}</td> --}}
                         {{-- <td>{{$teacher->created_at}}</td> --}}
                         <td>{{$teacher->updated_at}}</td>
 

@@ -13,6 +13,12 @@ class TeacherFactory extends Factory
      */
     public function definition()
     {
+        // $gender = $this->faker->randomElement(['Female','Male']);
+        $gender = $this->faker->randomElement([
+            'Female',
+            'Male'
+        ]);
+
         return [
             //
             'first_name'=>$this->faker->firstName(),
@@ -20,7 +26,8 @@ class TeacherFactory extends Factory
             'email'=>$this->faker->email,
             'phone'=>$this->faker->phoneNumber(),
             'age'=>$this->faker->numberBetween(17, 80),
-            'gender'=>$this->faker->boolean(),
+            // 'gender'=>$this->faker->gender,
+            'gender' => $gender,
             'active'=>$this->faker->boolean()
         ];
     }
