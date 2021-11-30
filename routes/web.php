@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MasgedController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::prefix('masged/admin/')->group(function () {
     Route::view('/', 'admin.parent')->name('admin.parent');
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);
+    Route::resource('/student', StudentController::class);
 });

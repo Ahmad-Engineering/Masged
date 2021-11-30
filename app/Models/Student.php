@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Masged extends Model
+class Student extends Model
 {
     use HasFactory;
 
-    public function students () {
-        return $this->hasMany(Student::class, 'masged_id', 'id');
+    public function masged () {
+        return $this->belongsTo(Masged::class, 'masged_id', 'id');
     }
 }
