@@ -15,6 +15,6 @@ class MasgedSeeder extends Seeder
     public function run()
     {
         //
-        Masged::factory(30)->create();
+        Masged::factory(5)->create();
     }
 }
