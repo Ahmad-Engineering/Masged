@@ -16,7 +16,7 @@ class StudentFactory extends Factory
     {
         return [
             //
-            'masged_id' => Masged::inRandomOrder()->first()->id,
+            'masged_name' => Masged::inRandomOrder()->first()->name,
             'email'=>$this->faker->email(),
             'first_name'=>$this->faker->firstName(),
             'last_name'=>$this->faker->lastName(),

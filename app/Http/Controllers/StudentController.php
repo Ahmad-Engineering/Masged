@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masged;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,10 @@ class StudentController extends Controller
         //
         // echo 'WE ARE IN THE :: INDEX';
         $data = Student::all();
+        // $masgedData = Masged::all();
         return response()->view('admin.student.index', [
             'students'=>$data
+            // 'masgeds' => $masgedData
         ]);
     }
 
@@ -86,5 +89,21 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+        $isDeleted = $student->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'title' => 'Deleted!',
+                'text' => 'Student deleted successfully',
+                'icon' => 'success',
+            ]);
+        }else{
+            return response()->json([
+                'title' => 'Failed!',
+                'text' => 'Student deleted failed',
+                'icon' => 'error',
+            ]);
+        }
+
     }
 }

@@ -25,10 +25,10 @@ class CreateStudentsTable extends Migration
             $table->enum('gender', ['Male', 'Female']);
 
             // CREATE F.K COLUMN
-            $table->foreignId('masged_id');
+            $table->string('masged_name');
 
             // SET PROPERTY
-            $table->foreign('masged_id')->on('masgeds')->references('id');
+            $table->foreign('masged_name')->on('masgeds')->references('name');
 
             $table->timestamps();
         });
