@@ -10,6 +10,6 @@ class Student extends Model
     use HasFactory;
 
     public function masged () {
-        return $this->belongsTo(Masged::class, 'masged_id', 'id');
+        return $this->belongsTo(Masged::class, 'masged_name', 'name');
     }
 }

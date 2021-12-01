@@ -191,12 +191,70 @@ Route::get('welcome', function () {
     // $data = Teacher::limit(10)->offset(10)->limit(20)->offset(20)->get();
     // $data = Masged::limit(10)->offset(10)->limit(20)->offset(20)->get();
 
+    // findOrFail -> Student
+    // $data = Student::all();
+    // $data = Student::findOrFail(171);
+
+    // findOrFail -> Teacher
+    // $data = Teacher::all();
+    // $data = Teacher::findOrFail(299);
+    // $data = Teacher::where('first_name','Trystan')->get();
+
+    // findOrFail -> Masged
+    // $data = Masged::all();
+    // $data = Masged::findOrFail(38);
+
+    // With -> Masged -> First Way To Write
+    // $data = Student::all();
+    // $data = Masged::all();
+    // $data = Masged::with('students')->get();
+
+    // With -> Masged -> Second Way To Write "Conditions OR Multipile"
+    // $data = Masged::where('id', 66)->with('students')->get();
+    // $data = Masged::where('id', 66)->with(['students'])->get(); ==> "Conditions OR Multipile"
+    // $data = Masged::where('id', '=', 66)->with(['students' => function ($qurey) {
+    //     $qurey->where('id', '=', 8);
+    // }])->get();
+
+    // With, findOrFail -> Masged
+    // $data = Masged::with(['students' => function ($qurey) {
+    //     $qurey->findOrFail(297);
+    // }])->findOrFail(6);
+
+    // Like in Where -> Masged
+    // $data = Masged::with(['students' => function ($qurey) {
+    //     $qurey->where('first_name', 'like', 'b%');
+    // }])->get();
+
+    // Like in where -> Student
+    // $data = Student::where('email', 'like', 's%')->get();
+
+    // Like in where -> Teacher
+    // $data = Teacher::where('last_name', 'like', 'w%')->get();
+
+    // Like in where -> Masged
+    // $data = Masged::where('name', 'like', '%x%')->get();
+
+    // withCount -> Masged
+    // $data = Masged::withCount(['students' => function ($qurey) {
+    //     $qurey->where('first_name', 'like', 'a%');
+    // }])->get();
+
+    // Has -> Masged
+    // $data = Student::has('masged')->get();
+    // $data = Teacher::has('masged')->get(); ==> Wrong Statement
+    // $data = Masged::has('students')->get();
+    // $data = Masged::has('students', '>', 5)->withCount(['students'])->get();
+    // $data = Masged::has('students', '>', 1)->withCount(['students' => function ($qurey) {
+    //     $qurey->where('first_name', 'like', 'a%');
+    // }])->get();
+
 
 
     
-    // return response()->json([
-    //     $data
-    // ]);
+    return response()->json([
+        $data
+    ]);
 
 
 });
