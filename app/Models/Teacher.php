@@ -20,6 +20,9 @@ class Teacher extends Model
         return $this->hasMany(StudentTeacher::class, 'teacher_id', 'id');
     }
 
+    public function masged () {
+        return $this->belongsTo(Masged::class, 'masged_id', 'id');
+    }
     function getStatusAttribute() {
         if ($this->active) {
             return 'Active';

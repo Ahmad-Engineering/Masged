@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Masged;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeacherFactory extends Factory
@@ -28,7 +29,8 @@ class TeacherFactory extends Factory
             'age'=>$this->faker->numberBetween(17, 80),
             // 'gender'=>$this->faker->gender,
             'gender' => $gender,
-            'active'=>$this->faker->boolean()
+            'active'=>$this->faker->boolean(),
+            'masged_id' => Masged::inRandomOrder()->first()->id,
         ];
     }
 }
