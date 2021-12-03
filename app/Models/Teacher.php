@@ -12,6 +12,14 @@ class Teacher extends Model
 
     protected $appends = ['status'];
 
+    public function courses () {
+        return $this->hasMany(TeacherCourse::class, 'teacher_id', 'id');
+    }
+
+    public function students () {
+        return $this->hasMany(StudentTeacher::class, 'teacher_id', 'id');
+    }
+
     function getStatusAttribute() {
         if ($this->active) {
             return 'Active';
