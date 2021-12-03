@@ -12,4 +12,12 @@ class Student extends Model
     public function masged () {
         return $this->belongsTo(Masged::class, 'masged_name', 'name');
     }
+
+    public function degrees () {
+        return $this->hasMany(Degree::class, 'student_id', 'id');
+    }
+
+    public function courses () {
+        return $this->hasMany(StudentCourse::class, 'student_id', 'id');
+    }
 }
