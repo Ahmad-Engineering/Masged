@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Masged;
 use App\Models\Student;
+use Dotenv\Validator;
+use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
@@ -33,6 +36,8 @@ class StudentController extends Controller
     public function create()
     {
         //
+        // echo 'WE ARE IN THE :: CREATE';
+        return response()->view('admin.student.create');
     }
 
     /**
@@ -43,7 +48,44 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'first_name' => 'required|string|min:3|max:30',
+            'last_name' => 'required|string|min:3|max:30',
+            'email' => 'string|min:10|max:50|unique',
+            'phone' => 'integer|unique',
+            'phone_number' => 'required|integer|unique',
+            'age' => 'integer|min:5|max:60',
+            'gender' => 'required|string',
+            'active' => 'required|boolean'
+        ]);
         //
+        if (!$validator->fails()) {
+            $student = new Student();
+            $student->first_name = $request->get('first_name');
+            $student->last_name = $request->get('last_name');
+            $student->email = $request->get('email');
+            $student->phone = $request->get('phone');
+            $student->parent_phone = $request->get('parent_phone');
+            $student->age = $request->get('age');
+            if ($request->get('gender') == 'male') {
+                $student->gender = 'Male';
+            }else{
+                $student->gender = 'Female';
+            }
+            $student->status = $request->get('active');
+
+            $isCreated = $student->save();
+
+            return response()->json([
+                'message' => $isCreated ? 'Student created successfully' : 'Failed to create student',
+            ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        
     }
 
     /**

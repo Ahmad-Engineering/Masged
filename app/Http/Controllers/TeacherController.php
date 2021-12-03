@@ -61,6 +61,7 @@ class TeacherController extends Controller
             $teacher->email = $request->get('email');
             $teacher->phone = $request->get('phone');
             $teacher->age = $request->get('age');
+            // $teacher->masged_id = 1;
             $teacher->active = $request->get('active');
             // WE WILL UPDATE IT AGIAN
             $teacher->gender = 1;

@@ -249,12 +249,14 @@ Route::get('welcome', function () {
     //     $qurey->where('first_name', 'like', 'a%');
     // }])->get();
 
+    // $data = Masged::with(['teachers', 'students', 'manager'])->get();
+
 
 
     
-    return response()->json([
-        $data
-    ]);
+    // return response()->json([
+    //     $data
+    // ]);
 
 
 });
