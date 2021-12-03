@@ -49,11 +49,11 @@
               <div class="form-group">
                 <label>Gender</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gender" value="male" checked>
+                  <input class="form-check-input" id="male" type="radio" name="gender" value="male" checked>
                   <label class="form-check-label">Male</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="gender" value="female">
+                  <input class="form-check-input" id="female" type="radio" name="gender" value="female">
                   <label class="form-check-label">Female</label>
                 </div>
                 {{-- <div class="form-check">
@@ -115,12 +115,13 @@
     <script>
       function store () {
         // alert('Sure');
-        var gender = 'male';
-        if (document.getElementById('male').checked) {
-          gender = document.getElementById('male').value;
-        }else {
-          gender = document.getElementById('female').value;
-        }
+        // var gender = 'male';
+        // if (document.getElementById('male').checked) {
+        //   gender = document.getElementById('male').value;
+        // }else {
+        //   gender = document.getElementById('female').value;
+        // }
+        // var gender = document.querySelector('input[name = "gender"]:checked').value;
         axios.post('/masged/admin/student', {
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
@@ -128,7 +129,7 @@
           phone: document.getElementById('phone').value,
           parent_phone: document.getElementById('parent_phone').value,
           age: document.getElementById('age').value,
-          gender: gender,
+          gender: document.querySelector('input[name = "gender"]:checked').value,
           active: document.getElementById('active').checked
         })
           .then(function (response) {

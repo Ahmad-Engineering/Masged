@@ -51,9 +51,9 @@ class StudentController extends Controller
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
-            'email' => 'string|min:10|max:50|unique',
-            'phone' => 'integer|unique',
-            'phone_number' => 'required|integer|unique',
+            'email' => 'string|min:10|max:50|unique:students',
+            'phone' => 'string|unique:students',
+            'phone_number' => 'string|integer|unique:students',
             'age' => 'integer|min:5|max:60',
             'gender' => 'required|string',
             'active' => 'required|boolean'
@@ -67,6 +67,8 @@ class StudentController extends Controller
             $student->phone = $request->get('phone');
             $student->parent_phone = $request->get('parent_phone');
             $student->age = $request->get('age');
+            // MASGED NAME WE WILL UPDATE IT LATER
+            $student->masged_name = 'Angelina Keebler';
             if ($request->get('gender') == 'male') {
                 $student->gender = 'Male';
             }else{
