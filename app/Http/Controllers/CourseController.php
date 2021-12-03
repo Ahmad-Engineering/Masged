@@ -15,6 +15,8 @@ class CourseController extends Controller
     public function index()
     {
         //
+        $data = Course::all();
+        return response()->view('admin.course.index', ['courses' => $data]);
     }
 
     /**
