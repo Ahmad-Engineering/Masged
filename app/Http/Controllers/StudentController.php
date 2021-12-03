@@ -110,6 +110,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         //
+        return response()->view('admin.student.edit', ['student'=>$student]);
     }
 
     /**
@@ -121,7 +122,43 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        $validator = Validator($request->all(), [
+            'first_name' => 'required|string|min:3|max:30',
+            'last_name' => 'required|string|min:3|max:30',
+            'email' => 'string|min:10|max:50',
+            'phone' => 'string',
+            'phone_number' => 'string|integer',
+            'age' => 'integer|min:5|max:60',
+            'gender' => 'required|string',
+            'active' => 'required|boolean'
+        ]);
         //
+        if (!$validator->fails()) {
+            $student->first_name = $request->get('first_name');
+            $student->last_name = $request->get('last_name');
+            $student->email = $request->get('email');
+            $student->phone = $request->get('phone');
+            $student->parent_phone = $request->get('parent_phone');
+            $student->age = $request->get('age');
+            // MASGED NAME WE WILL UPDATE IT LATER
+            // $student->masged_name = 'Angelina Keebler';
+            if ($request->get('gender') == 'male') {
+                $student->gender = 'Male';
+            }else{
+                $student->gender = 'Female';
+            }
+            $student->status = $request->get('active');
+
+            $isUpdated = $student->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Student updated successfully' : 'Failed to update student',
+            ]);
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
