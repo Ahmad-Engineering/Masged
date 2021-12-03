@@ -12,4 +12,8 @@ class Masged extends Model
     public function students () {
         return $this->hasMany(Student::class, 'masged_name', 'name');
     }
+
+    public function manager () {
+        return $this->hasOne(Manager::class, 'Masged_id', 'id');
+    }
 }
