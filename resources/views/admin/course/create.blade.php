@@ -35,7 +35,7 @@
                     <input type="checkbox" class="custom-control-input" id="active" checked>
                     <label class="custom-control-label" for="active">Active</label>
                   </div>
-              </div>
+                </div>
                 {{-- THERE ARE SOME WORK IN GENEDER IN ANOTHER UPDATE --}}
               </div>
               <!-- /.card-body -->

@@ -66,7 +66,7 @@
                         <td>{{$course->updated_at}}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="#" class="btn btn-info">
+                            <a href="{{route('course.edit', $course->id)}}" class="btn btn-info">
                               <i class="fas fa-edit"></i>
                             </a>
                           </div>
