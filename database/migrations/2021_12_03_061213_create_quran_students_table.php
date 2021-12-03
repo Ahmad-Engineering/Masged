@@ -21,6 +21,8 @@ class CreateQuranStudentsTable extends Migration
 
             $table->foreignId('quran_id');
             $table->foreign('quran_id')->on('qurans')->references('id');
+
+            $table->enum('status', ['Done', 'Waiting', 'Canceled'])->default('Waiting');
             
             $table->timestamps();
         });

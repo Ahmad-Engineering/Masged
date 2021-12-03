@@ -18,7 +18,7 @@ class QuranFactory extends Factory
             'part_no' => $this->faker->numberBetween(1, 30),
             'from_page' => $this->faker->numberBetween(1, 600),
             'to_page' => $this->faker->numberBetween(1, 600),
-            'status' => $this->faker->randomElement(['Done', 'Waiting']),
+            // 'status' => $this->faker->randomElement(['Done', 'Waiting', 'Canceled']),
         ];
     }
 }

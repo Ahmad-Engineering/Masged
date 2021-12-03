@@ -18,7 +18,8 @@ class QuranStudentFactory extends Factory
         return [
             //
             'student_id' => Student::inRandomOrder()->first()->id,
-            'quran_id' => Quran::inRandomOrder()->first()->id
+            'quran_id' => Quran::inRandomOrder()->first()->id,
+            'status' => $this->faker->randomElement(['Done', 'Waiting', 'Canceled']),
         ];
     }
 }

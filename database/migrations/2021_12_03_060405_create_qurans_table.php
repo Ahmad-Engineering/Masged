@@ -18,7 +18,7 @@ class CreateQuransTable extends Migration
             $table->integer('part_no');
             $table->integer('from_page');
             $table->integer('to_page');
-            $table->enum('status', ['Done', 'Waiting'])->default('Waiting');
+            // $table->enum('status', ['Done', 'Waiting', 'Canceled'])->default('Waiting');
             $table->timestamps();
         });
     }
