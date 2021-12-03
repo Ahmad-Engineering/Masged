@@ -43,6 +43,7 @@
                       <th>#</th>
                       <th>Name</th>
                       <th>Info</th>
+                      <th>Status</th>
                       <th>Craeted at</th>
                       <th>Updated at</th>
                       <th>Settings</th>
@@ -54,6 +55,13 @@
                         <td>{{$course->id}}</td>
                         <td>{{$course->name}}</td>
                         <td>{{$course->info}}</td>
+                        <td>
+                          @if($course->status)
+                          <span class="badge bg-success">Active</span>
+                          @else
+                          <span class="badge bg-danger">Diabled</span>
+                          @endif
+                        </td>
                         <td>{{$course->created_at}}</td>
                         <td>{{$course->updated_at}}</td>
                         <td>

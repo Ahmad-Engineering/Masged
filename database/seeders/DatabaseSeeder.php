@@ -25,18 +25,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Masged::factory(100)->create();
-        Manager::factory(100)->create();
-        Student::factory(300)->create();
-        Teacher::factory(300)->create();
-        Course::factory(100)->create();
-        Quran::factory(100)->create();
-        Degree::factory(300)->create();
+        Masged::factory(10)->create();
+        Manager::factory(10)->create();
+        Student::factory(10)->create();
+        Teacher::factory(10)->create();
+        Course::factory(10)->create();
+        Quran::factory(10)->create();
+        Degree::factory(10)->create();
 
         
-        QuranStudent::factory(100)->create();
-        StudentCourse::factory(100)->create();
-        StudentTeacher::factory(100)->create();
-        TeacherCourse::factory(100)->create();
+        QuranStudent::factory(10)->create();
+        StudentCourse::factory(10)->create();
+        StudentTeacher::factory(10)->create();
+        TeacherCourse::factory(10)->create();
     }
 }
