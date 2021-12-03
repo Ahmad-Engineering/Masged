@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CourseController extends Controller
 {
@@ -83,5 +85,20 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+        $isDeleted = $course->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'title' => 'Deleted!',
+                'text' => 'Course deleted successfully',
+                'icon' => 'success'
+            ], Response::HTTP_OK);
+        }else{
+            return response()->json([
+                'title' => 'Failed',
+                'text' => 'Course failed to delete',
+                'icon' => 'error'
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
