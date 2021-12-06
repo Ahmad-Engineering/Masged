@@ -14,7 +14,7 @@ class Masged extends Model
     }
 
     public function manager () {
-        return $this->hasOne(Manager::class, 'Masged_id', 'id');
+        return $this->belongsTo(Manager::class, 'manager_id', 'id');
     }
 
     public function teachers () {

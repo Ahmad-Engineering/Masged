@@ -25,7 +25,6 @@ class ManagerFactory extends Factory
             'age'=>$this->faker->numberBetween(17, 80),
             'phone'=>$this->faker->phoneNumber(),
             'status'=>$this->faker->randomElement(['Active', 'Disabled']),
-            'masged_id' => Masged::inRandomOrder()->first()->id,
         ];
     }
 }

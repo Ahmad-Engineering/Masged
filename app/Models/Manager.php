@@ -11,6 +11,6 @@ class Manager extends Authenticatable
     use HasFactory;
 
     public function masged () {
-        return $this->belongsTo(Masged::class, 'Masged_id', 'id');
+        return $this->hasOne(Masged::class, 'manager_id', 'id');
     }
 }

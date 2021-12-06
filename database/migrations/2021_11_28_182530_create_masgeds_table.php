@@ -18,6 +18,10 @@ class CreateMasgedsTable extends Migration
             $table->string('name', 45);
             $table->string('info', 100)->nullable();
             $table->string('location', 50);
+            
+            $table->foreignId('manager_id');
+
+            $table->foreign('manager_id')->on('managers')->references('id');
             $table->timestamps();
         });
     }

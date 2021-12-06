@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Masged;
 use Dotenv\Validator;
 use GrahamCampbell\ResultType\Result;
+use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +19,7 @@ class MasgedController extends Controller
     public function index()
     {
         //
-        $data = Masged::all();
+        $data = Masged::where('manager_id', auth()->user()->id)->get();
         return response()->view('admin.masged.index', ['masgeds'=> $data]);
     }
 
@@ -46,6 +47,12 @@ class MasgedController extends Controller
             'info'=>'min:0|max:100',
             'location'=>'required|min:3|max:30'
         ]);
+        $count = Masged::Where('manager_id', auth()->user()->id)->count();
+        if ($count != 0) {
+            return response()->json([
+                'message' => 'You can not manage more than one masged'
+            ], Response::HTTP_BAD_REQUEST);
+        }
         //
         if (!$validator->fails()) {
             // dd($request->all());
@@ -53,6 +60,7 @@ class MasgedController extends Controller
             $masged->name = $request->get('name');
             $masged->info = $request->get('info');
             $masged->location = $request->get('location');
+            $masged->manager_id = auth()->user()->id;
             $isCreated = $masged->save();
 
             return response()->json([
@@ -85,7 +93,12 @@ class MasgedController extends Controller
     public function edit(Masged $masged)
     {
         //
-        return response()->view('admin.masged.edit', ['masged'=>$masged]);
+        $data = Masged::where('manager_id', auth()->user()->id)->first();
+        if ($masged->id == $data->id) {
+            return response()->view('admin.masged.edit', ['masged'=>$masged]);
+        }else{
+            return redirect()->route('masged.index');
+        }
     }
 
     /**

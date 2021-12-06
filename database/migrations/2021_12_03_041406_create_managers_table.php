@@ -25,9 +25,6 @@ class CreateManagersTable extends Migration
             $table->integer('age');
             $table->enum('status', ['Active', 'Disabled'])->default('Active');
 
-            $table->foreignId('masged_id');
-
-            $table->foreign('masged_id')->on('masgeds')->references('id');
             
             $table->timestamps();
         });

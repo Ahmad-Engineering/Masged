@@ -176,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{asset('masged/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{auth()->user()->first_name . ' ' . auth()->user()->last_name}}</a>
         </div>
       </div>
 
@@ -314,7 +314,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               <li class="nav-header">Settings</li>
               <li>
-                <a href="{{route('logout')}}" class="nav-link">
+                <a href="{{route('logout')}}" class="nav-link" style="color: #fff;">
                   <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p class="text">Logout</p>
                 </a>
