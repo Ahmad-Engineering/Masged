@@ -17,6 +17,7 @@ class CourseFactory extends Factory
             //
             'name'=>$this->faker->word(),
             'info'=>$this->faker->word(),
+            'status' => $this->faker->boolean()
         ];
     }
 }

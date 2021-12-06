@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MasgedController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -31,4 +32,5 @@ Route::prefix('masged/admin/')->middleware('auth:manager')->group(function () {
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);
     Route::resource('/student', StudentController::class);
+    Route::resource('/course', CourseController::class);
 });
