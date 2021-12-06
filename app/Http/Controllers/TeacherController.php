@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masged;
 use App\Models\Teacher;
 use Dotenv\Validator;
 use Illuminate\Auth\Events\Validated;
@@ -19,7 +20,8 @@ class TeacherController extends Controller
     {
         //
         // return view('admin.teacher.index');
-        $data = Teacher::all();
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $data = Teacher::Where('masged_id', $masged->id)->get();
         return response()->view('admin.teacher.index', ['teachers'=>$data]);
     }
 
@@ -31,8 +33,6 @@ class TeacherController extends Controller
     public function create()
     {
         //
-        // return response()->view('admin.teacher.create');
-        // echo 'WE ARE IN THE :: CREATE';
         return response()->view('admin.teacher.create');
     }
 
@@ -55,13 +55,14 @@ class TeacherController extends Controller
         //
 
         if (!$validator->fails()) {
+            $masge = Masged::where('manager_id', auth()->user()->id)->first();
             $teacher = new Teacher();
             $teacher->first_name = $request->get('first_name');
             $teacher->last_name = $request->get('last_name');
             $teacher->email = $request->get('email');
             $teacher->phone = $request->get('phone');
             $teacher->age = $request->get('age');
-            // $teacher->masged_id = 1;
+            $teacher->masged_id = $masge->id;
             $teacher->active = $request->get('active');
             // WE WILL UPDATE IT AGIAN
             $teacher->gender = 1;
@@ -98,7 +99,13 @@ class TeacherController extends Controller
     public function edit(Teacher $teacher)
     {
         //
-        return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $reTeacher = Teacher::where('masged_id', $masged->id)->first();
+        if ($reTeacher->id == $teacher->id) {
+            return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
+        }else{
+            return redirect()->route('teacher.index');
+        }
     }
 
     /**
