@@ -33,4 +33,5 @@ Route::prefix('masged/admin/')->middleware('auth:manager')->group(function () {
     Route::resource('/masged', MasgedController::class);
     Route::resource('/student', StudentController::class);
     Route::resource('/course', CourseController::class);
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -20,7 +20,7 @@ class ManagerFactory extends Factory
             'first_name'=>$this->faker->firstName(),
             'last_name'=>$this->faker->lastName(),
             'email'=>$this->faker->email(),
-            'password' => Hash::make('123'),
+            'password' => Hash::make('password'),
             'gender'=>$this->faker->randomElement(['Male', 'Female']),
             'age'=>$this->faker->numberBetween(17, 80),
             'phone'=>$this->faker->phoneNumber(),

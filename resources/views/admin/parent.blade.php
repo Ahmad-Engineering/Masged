@@ -312,6 +312,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                 </ul>
               </li>
+              <li class="nav-header">Settings</li>
+              <li>
+                <a href="{{route('logout')}}" class="nav-link">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p class="text">Logout</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>

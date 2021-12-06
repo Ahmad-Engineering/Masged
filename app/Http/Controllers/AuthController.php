@@ -41,4 +41,10 @@ class AuthController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function logout (Request $request) {
+        auth('manager')->logout();
+        $request->session()->invalidate();
+        return redirect()->route('logout');
+    }
 }
