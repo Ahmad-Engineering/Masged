@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Masged;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class ManagerFactory extends Factory
 {
@@ -19,6 +20,7 @@ class ManagerFactory extends Factory
             'first_name'=>$this->faker->firstName(),
             'last_name'=>$this->faker->lastName(),
             'email'=>$this->faker->email(),
+            'password' => Hash::make('123'),
             'gender'=>$this->faker->randomElement(['Male', 'Female']),
             'age'=>$this->faker->numberBetween(17, 80),
             'phone'=>$this->faker->phoneNumber(),

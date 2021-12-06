@@ -19,6 +19,7 @@ class CreateManagersTable extends Migration
             $table->string('first_name', 45);
             $table->string('last_name', 45);
             $table->string('email', 45)->unique()->nullable();
+            $table->string('password');
             $table->enum('gender', ['Male', 'Female']);
             $table->string('phone', 20);
             $table->integer('age');

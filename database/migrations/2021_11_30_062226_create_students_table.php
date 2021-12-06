@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('last_name', 45);
             $table->string('phone', 45);
             $table->string('parent_phone', 45);
+            $table->string('password');
             $table->integer('age');
             $table->boolean('status');
             $table->enum('gender', ['Male', 'Female']);

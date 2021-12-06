@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Manager;
+use App\Models\Student;
+
 return [
 
     /*
@@ -40,6 +43,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'manager' => [
+            'driver' => 'session',
+            'provider' => 'managers',
+        ],
     ],
 
     /*
@@ -63,6 +71,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'managers' => [
+            'driver' => 'eloquent',
+            'model' => Manager::class,
         ],
 
         // 'users' => [
