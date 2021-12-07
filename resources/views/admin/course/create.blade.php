@@ -59,7 +59,7 @@
     <script>
       function store () {
         // alert('Sure');
-        axios.post('/masged/admin/course', {
+        axios.post('/masged/manager/course', {
           name: document.getElementById('name').value,
           info: document.getElementById('info').value,
           status: document.getElementById('active').checked

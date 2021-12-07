@@ -50,9 +50,12 @@ class CourseController extends Controller
         ]);
         //
         if (!$validator->fails()) {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
             $course = new Course();
             $course->name = $request->get('name');
             $course->info = $request->get('info');
+            $course->masged_name = $masged->name;
             $course->status = $request->get('status');
 
             $isCreated = $course->save();
