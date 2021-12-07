@@ -90,7 +90,15 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         //
-        return response()->view('admin.course.edit', ['course' => $course]);
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $course_collection = Course::where('masged_name', $masged->name)->get();
+
+        foreach ($course_collection as $reCourse) {
+            if ($reCourse->id == $course->id) {
+                return response()->view('admin.course.edit', ['course' => $course]);
+            }
+        }
+        return redirect()->route('course.index');
     }
 
     /**
@@ -102,26 +110,20 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        $validator = null;
-        if ($course->name == $request->get('name')) {
-            $validator = Validator($request->all(), [
-                // 'name' => 'required|string|min:3|max:40|unique:courses',
-                'info' => 'string|min:10|max:100',
-                'status' => 'required|boolean'
-            ]);
-        }else {
-            $validator = Validator($request->all(), [
-                'name' => 'required|string|min:3|max:40|unique:courses',
-                'info' => 'string|min:10|max:100',
-                'status' => 'required|boolean'
-            ]);
-        }
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|min:3|max:40|unique:courses',
+            'info' => 'string|min:10|max:100',
+            'status' => 'required|boolean'
+        ]);
         //
 
         if (!$validator->fails()) {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
             $course->name = $request->get('name');
             $course->info = $request->get('info');
             $course->status = $request->get('status');
+            $course->masged_name = $masged->name;
 
             $isUpdated = $course->save();
             
@@ -130,7 +132,7 @@ class CourseController extends Controller
             ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         }else {
             return response()->json([
-                'message' => 'Failed to update course'
+                'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
         }
     }

@@ -116,7 +116,7 @@
 
       function destroy (id, refranec) {
         // course/admin/teacher/{teacher}
-        axios.delete('/masged/admin/course/' + id)
+        axios.delete('/masged/manager/course/' + id)
           .then(function (response) {
             // handle success
             console.log(response);

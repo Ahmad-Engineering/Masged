@@ -87,7 +87,7 @@
     <script>
       function update (id) {
         // alert('Sure');
-        axios.put('/masged/admin/course/' + id, {
+        axios.put('/masged/manager/course/' + id, {
           name: document.getElementById('name').value,
           info: document.getElementById('info').value,
           status: document.getElementById('active').checked
