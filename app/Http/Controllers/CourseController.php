@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Masged;
 use Dotenv\Validator;
 use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class CourseController extends Controller
     public function index()
     {
         //
-        $data = Course::all();
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $data = Course::where('masged_name', $masged->name)->get();
         return response()->view('admin.course.index', ['courses' => $data]);
     }
 

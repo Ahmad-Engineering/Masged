@@ -17,6 +17,10 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name', 45);
             $table->string('info', 100)->nullable();
+
+            $table->string('masged_name');
+            $table->foreign('masged_name')->on('masgeds')->references('name');
+
             $table->timestamps();
         });
     }

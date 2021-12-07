@@ -20,4 +20,8 @@ class Masged extends Model
     public function teachers () {
         return $this->hasMany(Teacher::class, 'masged_id', 'id');
     }
+
+    public function courses () {
+        return $this->hasMany(Course::class , 'masged_name', 'name');
+    }
 }

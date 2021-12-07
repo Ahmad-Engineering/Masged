@@ -16,4 +16,8 @@ class Course extends Model
     public function teachers () {
         return $this->hasMany(TeacherCourse::class, 'course_id', 'id');
     }
+
+    public function masged() {
+        return $this->belongsTo(Masged::class, 'masged_name', 'name');
+    }
 }
