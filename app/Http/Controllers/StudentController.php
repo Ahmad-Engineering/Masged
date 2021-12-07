@@ -115,7 +115,14 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         //
-        return response()->view('admin.student.edit', ['student'=>$student]);
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $data = Student::where('masged_name', $masged->name)->first();
+
+        if ($data->id == $student->id) {
+            return response()->view('admin.student.edit', ['student'=>$student]);
+        }else{
+            return redirect()->route('student.index');
+        }
     }
 
     /**
@@ -132,13 +139,15 @@ class StudentController extends Controller
             'last_name' => 'required|string|min:3|max:30',
             'email' => 'string|min:10|max:50',
             'phone' => 'string',
-            'phone_number' => 'string|integer',
+            'parent_phone' => 'required|string',
             'age' => 'integer|min:5|max:60',
             'gender' => 'required|string',
             'active' => 'required|boolean'
         ]);
         //
         if (!$validator->fails()) {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
             $student->first_name = $request->get('first_name');
             $student->last_name = $request->get('last_name');
             $student->email = $request->get('email');
@@ -146,7 +155,7 @@ class StudentController extends Controller
             $student->parent_phone = $request->get('parent_phone');
             $student->age = $request->get('age');
             // MASGED NAME WE WILL UPDATE IT LATER
-            // $student->masged_name = 'Angelina Keebler';
+            $student->masged_name = $masged->name;
             if ($request->get('gender') == 'male') {
                 $student->gender = 'Male';
             }else{
