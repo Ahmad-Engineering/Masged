@@ -45,7 +45,7 @@ class MasgedController extends Controller
         $validator = Validator($request->all(), [
             'name'=>'required|min:3|max:30',
             'info'=>'min:0|max:100',
-            'location'=>'required|min:3|max:30'
+            'location'=>'required|min:3|max:100'
         ]);
         $count = Masged::Where('manager_id', auth()->user()->id)->count();
         if ($count != 0) {

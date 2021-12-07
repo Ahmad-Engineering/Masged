@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Masged;
+use App\Models\Teacher;
+use App\Models\TeacherCourse;
 use Dotenv\Validator;
-use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,6 +23,77 @@ class CourseController extends Controller
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $data = Course::where('masged_name', $masged->name)->get();
         return response()->view('admin.course.index', ['courses' => $data]);
+    }
+
+    public function showAddCourse (Course $course) {
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $courses = Course::where('masged_name', $masged->name)->get();
+        $teachers = Teacher::where('masged_id', $masged->id)->get();
+        // $courseId = $course->id;
+        // $teacher = Teacher::where('masged_id', $masged->id)->get();
+        // foreach ($teacher as $reTeacher) {
+        //     $teacherId = $reTeacher->id;
+        // }
+        // $teachers = Teacher::with(['courses' =>function ($query) use($courseId, $teacherId) {
+        //     $query->where('course_id', '!=', $courseId)
+        //     ->where('teacher_id', '!=',$teacherId)
+        //     ->get();
+        // }])
+        // ->where('masged_id', $masged->id)
+        // ->get();
+
+        foreach ($courses as $reCourse) {
+            if ($course->id == $reCourse->id) {
+                $course = Course::where('id', $course->id)->get();
+                return response()->view('admin.course.addCourse', ['course' => $course, 'teachers' => $teachers]);
+            }
+        }
+        return redirect()->route('course.index');
+
+    }
+
+    public function addCourse (Request $request, Course $course, Teacher $teacher) {
+
+        if ($course->status && $teacher->active) {
+
+            $count = TeacherCourse::where('teacher_id', $teacher->id)
+            ->where('course_id', $course->id)
+            ->count();
+    
+            if ($count == 0) {
+                $teacherCourse = new TeacherCourse();
+                $teacherCourse->course_id = $course->id;
+                $teacherCourse->teacher_id = $teacher->id;
+        
+                $isCreated = $teacherCourse->save();
+        
+                if ($isCreated) {
+                    return response()->json([
+                        'icon' => 'success',
+                        'title' => 'Added',
+                        'text' => 'The ' . $course->name . ' added for ' . $teacher->first_name . ' ' . $teacher->last_name . ' successfully',
+                    ], Response::HTTP_OK);
+                }else {
+                    return response()->json([
+                        'icon' => 'error',
+                        'title' => 'Failed',
+                        'text' => 'Failed to add course for the teacher.',
+                    ], Response::HTTP_BAD_REQUEST);
+                }
+            }else {
+                return response()->json([
+                    'icon' => 'error',
+                    'title' => 'Failed',
+                    'text' => $teacher->first_name . ' ' . $teacher->last_name . ' taken this course before ' . $course->name . '.',
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'Failed',
+                'text' => $course->name . ' or ' . $teacher->first_name . ' ' . $teacher->last_name .' is disabled, active it and try agian.',
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -45,7 +117,7 @@ class CourseController extends Controller
     {
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:40|unique:courses',
-            'info' => 'string|min:10|max:100',
+            'info' => 'string|max:100',
             'status' => 'required|boolean'
         ]);
         //
@@ -65,7 +137,7 @@ class CourseController extends Controller
             ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         }else {
             return response()->json([
-                'message' => 'Failed to create course'
+                'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
         }
     }
@@ -111,8 +183,8 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $validator = Validator($request->all(), [
-            'name' => 'required|string|min:3|max:40|unique:courses',
-            'info' => 'string|min:10|max:100',
+            'name' => 'required|string|min:3|max:40',
+            'info' => 'string|min:1|max:100',
             'status' => 'required|boolean'
         ]);
         //

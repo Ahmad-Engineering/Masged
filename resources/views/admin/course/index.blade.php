@@ -72,6 +72,12 @@
                           </div>
 
                           <div class="btn-group">
+                            <a href="{{route('add.course', $course->id)}}" class="btn btn-success">
+                              <i class="fas fa-address-card"></i>
+                            </a>
+                          </div>
+
+                          <div class="btn-group">
                             <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$course->id}}, this)">
                               <i class="fas fa-trash"></i>
                             </button>
