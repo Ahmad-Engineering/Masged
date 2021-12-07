@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use Dotenv\Validator;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class TeacherController extends Controller
@@ -21,8 +22,14 @@ class TeacherController extends Controller
         //
         // return view('admin.teacher.index');
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
-        $data = Teacher::Where('masged_id', $masged->id)->get();
-        return response()->view('admin.teacher.index', ['teachers'=>$data]);
+        $count = Teacher::where('masged_id', $masged->id)->count();
+        if ($count == 0) {
+            return redirect()->route('admin.parent');
+        }else {
+            // $masged = Masged::where('manager_id', auth()->user()->id)->first();
+            $data = Teacher::Where('masged_id', $masged->id)->get();
+            return response()->view('admin.teacher.index', ['teachers'=>$data]);
+        }
     }
 
     /**
@@ -62,6 +69,7 @@ class TeacherController extends Controller
             $teacher->email = $request->get('email');
             $teacher->phone = $request->get('phone');
             $teacher->age = $request->get('age');
+            $teacher->password = Hash::make('password');
             $teacher->masged_id = $masge->id;
             $teacher->active = $request->get('active');
             // WE WILL UPDATE IT AGIAN

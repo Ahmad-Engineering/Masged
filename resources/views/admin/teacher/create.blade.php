@@ -96,7 +96,7 @@
     <script>
       function store () {
         // alert('Sure');
-        axios.post('/masged/admin/teacher', {
+        axios.post('/masged/manager/teacher', {
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
           email: document.getElementById('email').value,

@@ -102,7 +102,7 @@
     <script>
       function update (id) {
         // alert('Sure');
-        axios.put('/masged/admin/teacher/' + id, {
+        axios.put('/masged/manager/teacher/' + id, {
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
           email: document.getElementById('email').value,
