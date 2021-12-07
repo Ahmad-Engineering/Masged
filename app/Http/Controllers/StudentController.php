@@ -121,13 +121,14 @@ class StudentController extends Controller
     {
         //
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
-        $data = Student::where('masged_name', $masged->name)->first();
+        $student_collection = Student::where('masged_name', $masged->name)->get();
 
-        if ($data->id == $student->id) {
-            return response()->view('admin.student.edit', ['student'=>$student]);
-        }else{
-            return redirect()->route('student.index');
+        foreach ($student_collection as $reStudent) {
+            if ($reStudent->id == $student->id) {
+                return response()->view('admin.student.edit', ['student'=>$student]);
+            }
         }
+        return redirect()->route('student.index');
     }
 
     /**
