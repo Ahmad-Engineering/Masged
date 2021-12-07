@@ -107,13 +107,26 @@ class TeacherController extends Controller
     public function edit(Teacher $teacher)
     {
         //
-        $masged = Masged::where('manager_id', auth()->user()->id)->first();
-        $reTeacher = Teacher::where('masged_id', $masged->id)->first();
-        if ($reTeacher->id == $teacher->id) {
-            return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
-        }else{
-            return redirect()->route('teacher.index');
+        // $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        // $reTeacher = Teacher::all();
+
+        $masge = Masged::where('manager_id', auth()->user()->id)->first();
+        $teacher_collection = Teacher::where('masged_id', $masge->id)->get();
+        foreach ($teacher_collection as $reTeacher) {
+            if ($teacher->id == $reTeacher->id) {
+                return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
+            }
         }
+        return redirect()->route('teacher.index');
+
+        // foreach ($reTeacher as $oneTeacher) {
+        //     dd($oneTeacher->id );
+        //     if ($oneTeacher->id == $teacher->id) {
+        //         return response()->view('admin.teacher.edit', ['teacher'=>$teacher]);
+        //     }else{
+        //         return redirect()->route('teacher.index');
+        //     }
+        // }
     }
 
     /**
@@ -128,10 +141,12 @@ class TeacherController extends Controller
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
-            'email' => 'required|string|min:3|max:30',
+            'email' => 'required|string|min:3|max:45',
             'phone' => 'required|string|min:8|max:20',
             'age' => 'required|integer|min:17|max:80',
             'active' => 'required|boolean'
+        ],[
+            'phone.required' => 'Re-enter a new phone, this phone has been used'
         ]);
         //
         if (!$validator->fails()) {
