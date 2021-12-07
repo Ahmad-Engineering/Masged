@@ -7,6 +7,7 @@ use App\Models\Student;
 use Dotenv\Validator;
 use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
@@ -20,7 +21,8 @@ class StudentController extends Controller
     {
         //
         // echo 'WE ARE IN THE :: INDEX';
-        $data = Student::all();
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $data = Student::where('masged_name', $masged->name)->get();
         // $masgedData = Masged::all();
         return response()->view('admin.student.index', [
             'students'=>$data
@@ -53,13 +55,15 @@ class StudentController extends Controller
             'last_name' => 'required|string|min:3|max:30',
             'email' => 'string|min:10|max:50|unique:students',
             'phone' => 'string|unique:students',
-            'phone_number' => 'string|integer|unique:students',
+            'parent_phone' => 'string|string',
             'age' => 'integer|min:5|max:60',
             'gender' => 'required|string',
             'active' => 'required|boolean'
         ]);
         //
         if (!$validator->fails()) {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
             $student = new Student();
             $student->first_name = $request->get('first_name');
             $student->last_name = $request->get('last_name');
@@ -67,8 +71,9 @@ class StudentController extends Controller
             $student->phone = $request->get('phone');
             $student->parent_phone = $request->get('parent_phone');
             $student->age = $request->get('age');
+            $student->password = Hash::make('password');
             // MASGED NAME WE WILL UPDATE IT LATER
-            $student->masged_name = 'Angelina Keebler';
+            $student->masged_name = $masged->name;
             if ($request->get('gender') == 'male') {
                 $student->gender = 'Male';
             }else{

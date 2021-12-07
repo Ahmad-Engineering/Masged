@@ -41,7 +41,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Masged name</th>
+                      {{-- <th>Masged name</th> --}}
                       <th>Name</th>
                       <th>E-mail</th>
                       <th>Phone</th>
@@ -58,7 +58,7 @@
                     @foreach ($students as $student)
                       <tr>
                         <td>{{$student->id}}</td>
-                        <td>{{$student->masged_name}}</td>
+                        {{-- <td>{{$student->masged_name}}</td> --}}
                         <td>{{$student->first_name . " " . $student->last_name}}</td>
                         <td>{{$student->email}}</td>
                         <td>{{$student->phone}}</td>
@@ -125,7 +125,7 @@
 
       function destroy (id, refranec) {
         // student/admin/teacher/{teacher}
-        axios.delete('/masged/admin/student/' + id)
+        axios.delete('/masged/manager/student/' + id)
           .then(function (response) {
             // handle success
             console.log(response);

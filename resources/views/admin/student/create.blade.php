@@ -122,7 +122,7 @@
         //   gender = document.getElementById('female').value;
         // }
         // var gender = document.querySelector('input[name = "gender"]:checked').value;
-        axios.post('/masged/admin/student', {
+        axios.post('/masged/manager/student', {
           first_name: document.getElementById('first_name').value,
           last_name: document.getElementById('last_name').value,
           email: document.getElementById('email').value,
