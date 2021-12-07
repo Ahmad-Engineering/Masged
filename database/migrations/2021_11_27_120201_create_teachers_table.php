@@ -19,6 +19,7 @@ class CreateTeachersTable extends Migration
             $table->string('last_name', 45);
             $table->string('email', 45)->nullable();
             $table->string('phone', 20)->unique();
+            $table->string('password');
             $table->integer('age');
             $table->enum('gender', ['Male', 'Female']);
             $table->boolean('active')->default(true);

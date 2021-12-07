@@ -22,12 +22,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('masged/admin')->group(function () {
-    Route::get('login', [AuthController::class, 'showLogin'])->name('login');
+Route::prefix('masged')->group(function () {
+    Route::get('{guard}/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::prefix('masged/admin/')->middleware('auth:manager')->group(function () {
+Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () {
     Route::view('/', 'admin.parent')->name('admin.parent');
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);

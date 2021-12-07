@@ -2,6 +2,7 @@
 
 use App\Models\Manager;
 use App\Models\Student;
+use App\Models\Teacher;
 
 return [
 
@@ -48,6 +49,16 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
+
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students'
+        ],
+
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers'
+        ],
     ],
 
     /*
@@ -76,6 +87,16 @@ return [
         'managers' => [
             'driver' => 'eloquent',
             'model' => Manager::class,
+        ],
+
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => Student::class,
+        ],
+
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => Teacher::class,
         ],
 
         // 'users' => [

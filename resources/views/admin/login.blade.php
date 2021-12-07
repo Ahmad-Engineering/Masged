@@ -54,7 +54,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="button" onclick="login()" class="btn btn-primary btn-block">Sign In</button>
+            <button type="button" onclick="login('{{$guard}}')" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -94,8 +94,8 @@
 <!-- Toastr -->
 <script src="{{asset('masged/plugins/toastr/toastr.min.js')}}"></script>
 <script>
-  function login () {
-    // alert('Sure');
+  function login (guard) {
+    // alert(guard);
     // var gender = 'male';
     // if (document.getElementById('male').checked) {
     //   gender = document.getElementById('male').value;
@@ -103,16 +103,17 @@
     //   gender = document.getElementById('female').value;
     // }
     // var gender = document.querySelector('input[name = "gender"]:checked').value;
-    axios.post('/masged/admin/login', {
+    axios.post('/masged/login', {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
+      guard: guard,
     })
       .then(function (response) {
         // handle success
         console.log(response);
         toastr.success(response.data.message);
         // document.getElementById('create-form').reset();
-        window.location.href = '/masged/admin/';
+        window.location.href = '/masged/' + guard + '/';
       })
       .catch(function (error) {
         // handle error

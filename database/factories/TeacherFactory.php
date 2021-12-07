@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Masged;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherFactory extends Factory
 {
@@ -28,6 +29,7 @@ class TeacherFactory extends Factory
             'phone'=>$this->faker->phoneNumber(),
             'age'=>$this->faker->numberBetween(17, 80),
             // 'gender'=>$this->faker->gender,
+            'password' => Hash::make('password'),
             'gender' => $gender,
             'active'=>$this->faker->boolean(),
             'masged_id' => Masged::inRandomOrder()->first()->id,
