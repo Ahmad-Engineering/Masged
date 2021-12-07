@@ -21,13 +21,18 @@ class StudentController extends Controller
     {
         //
         // echo 'WE ARE IN THE :: INDEX';
-        $masged = Masged::where('manager_id', auth()->user()->id)->first();
-        $data = Student::where('masged_name', $masged->name)->get();
-        // $masgedData = Masged::all();
-        return response()->view('admin.student.index', [
-            'students'=>$data
-            // 'masgeds' => $masgedData
-        ]);
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0) {
+            return redirect()->route('admin.parent');
+        }else {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+            $data = Student::where('masged_name', $masged->name)->get();
+            // $masgedData = Masged::all();
+            return response()->view('admin.student.index', [
+                'students'=>$data
+                // 'masgeds' => $masgedData
+            ]);
+        }
     }
 
     /**

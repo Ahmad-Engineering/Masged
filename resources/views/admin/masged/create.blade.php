@@ -57,7 +57,7 @@
     <script>
       function store () {
         // alert('Sure');
-        axios.post('/masged/admin/masged', {
+        axios.post('/masged/manager/masged', {
           name: document.getElementById('name').value,
           info: document.getElementById('info').value,
           location: document.getElementById('location').value,
