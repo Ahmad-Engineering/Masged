@@ -120,12 +120,12 @@
       function addCourse(courseId, teacherId) {
         Swal.fire({
           title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          text: "This teacher will take this course",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonText: 'Yes, add it!'
         }).then((result) => {
           if (result.isConfirmed) {
             adding(courseId, teacherId);
