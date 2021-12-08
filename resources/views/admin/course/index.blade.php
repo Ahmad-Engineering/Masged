@@ -72,6 +72,12 @@
                           </div>
 
                           <div class="btn-group">
+                            <a href="{{route('add.student', $course->id)}}" class="btn btn-info">
+                              <i class="fas fa-address-card"></i>
+                            </a>
+                          </div>
+
+                          <div class="btn-group">
                             <a href="{{route('add.course', $course->id)}}" class="btn btn-success">
                               <i class="fas fa-address-card"></i>
                             </a>

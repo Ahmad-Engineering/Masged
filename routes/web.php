@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddStudentToCourse;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MasgedController;
@@ -35,5 +36,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::resource('/course', CourseController::class);
     Route::get('{course}/addcourse', [CourseController::class, 'showAddCourse'])->name('add.course');
     Route::post('{course}/addcourse/{teacher}/', [CourseController::class,'addCourse']);
+    Route::get('{course}/addstudent', [AddStudentToCourse::class, 'showAddingStudent'])->name('add.student');
+    Route::post('{course}/addstudent/{student}/', [AddStudentToCourse::class,'addStudent']);
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
