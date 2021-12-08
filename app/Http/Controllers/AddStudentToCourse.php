@@ -28,7 +28,6 @@ class AddStudentToCourse extends Controller
 
             $teacher = TeacherCourse::where('course_id', $course->id)->first();
             $teacherCount = TeacherCourse::where('course_id', $course->id)
-            ->where('teacher_id', $teacher->teacher_id)
             ->count();
 
             if ($teacherCount != 0) {
