@@ -114,50 +114,48 @@
 @endsection
 
 @section('scripts')
-    <script>
-      function addStudentToCourse(courseId, studentId) {
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "This student will take this course",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, add it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            adding(courseId, studentId);
-          }
-        });
+<script>
+  function addStudentToCourse(courseId, studentId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This student will take this course",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, add it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        adding(courseId, studentId);
       }
-
-      function adding (courseId, studentId) {
-        // masged/manager/{course}/addcourse/{student}
-        axios.post('/masged/manager/' + courseId + '/addstudent/' + studentId + '/')
-          .then(function (response) {
-            // handle success
-            console.log(response);
-            // refranec.closest('tr').remove();
-            showDeletingResult(response.data);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-            showDeletingResult(error.response.data);
-          })
-          .then(function () {
-            // always executed
-          });
-      }
-
-      function showDeletingResult (data) {
-        Swal.fire({
-          icon: data.icon,
-          title: data.title,
-          text: data.text,
-          showConfirmButton: false,
-          timer: 4000
-        });
-      }
-    </script>
+    });
+  }
+  function adding (courseId, studentId) {
+    // masged/manager/{course}/addcourse/{student}
+    axios.post('/masged/manager/' + courseId + '/addstudent/' + studentId + '/')
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        // refranec.closest('tr').remove();
+        showDeletingResult(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        showDeletingResult(error.response.data);
+      })
+      .then(function () {
+        // always executed
+      });
+  }
+  function showDeletingResult (data) {
+    Swal.fire({
+      icon: data.icon,
+      title: data.title,
+      text: data.text,
+      showConfirmButton: false,
+      timer: 4000
+    });
+  }
+</script>
 @endsection
