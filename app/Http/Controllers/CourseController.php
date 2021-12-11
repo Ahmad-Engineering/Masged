@@ -63,6 +63,7 @@ class CourseController extends Controller
             if ($count == 0) {
                 $teacherCourse = new TeacherCourse();
                 $teacherCourse->course_id = $course->id;
+                $teacherCourse->course_name = $course->name;
                 $teacherCourse->teacher_id = $teacher->id;
         
                 $isCreated = $teacherCourse->save();

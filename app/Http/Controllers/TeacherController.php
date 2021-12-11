@@ -170,6 +170,16 @@ class TeacherController extends Controller
         }
     }
 
+    public function showTeacherCourses () {
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $teacher_courses = Teacher::where('masged_id', $masged->id)
+        ->with(['courses'])
+        ->get();
+
+        return response()->view('admin.teacher.teacher-courses', ['teacher_courses' => $teacher_courses]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

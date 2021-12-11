@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MasgedController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\TeacherCourse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,13 +31,20 @@ Route::prefix('masged')->group(function () {
 
 Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () {
     Route::view('/', 'admin.parent')->name('admin.parent');
+
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);
     Route::resource('/student', StudentController::class);
     Route::resource('/course', CourseController::class);
+
     Route::get('{course}/addcourse', [CourseController::class, 'showAddCourse'])->name('add.course');
     Route::post('{course}/addcourse/{teacher}/', [CourseController::class,'addCourse']);
+
     Route::get('{course}/addstudent', [AddStudentToCourse::class, 'showAddingStudent'])->name('add.student');
     Route::post('{course}/addstudent/{student}/', [AddStudentToCourse::class,'addStudent']);
+
+
+    Route::get('/show-teacher-courses', [TeacherController::class, 'showTeacherCourses'])->name('show.teacher.courses');
+
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
