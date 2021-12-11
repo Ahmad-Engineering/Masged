@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TeacherCourse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TeacherCourseController extends Controller
 {
@@ -80,6 +81,21 @@ class TeacherCourseController extends Controller
      */
     public function destroy(TeacherCourse $teacherCourse)
     {
+        $isDeleted = $teacherCourse->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'icon' => 'success',
+                'text' => $teacherCourse->course_name . ' is successfully removed.',
+                'title' => 'Successfully Removed',
+            ], Response::HTTP_OK);
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'text' => $teacherCourse->course_name . ' failed to remove.',
+                'title' => 'Failed Removing!',
+            ], Response::HTTP_BAD_REQUEST);
+        }
         //
     }
 }

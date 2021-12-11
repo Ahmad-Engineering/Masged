@@ -48,23 +48,9 @@
                       <th>status</th>
                       <th>Course name</th>
                       <th>Settings</th>
-                      {{-- <th>Created at</th> --}}
                     </tr>
                   </thead>
                   <tbody>
-
-                    {{-- FOR EACH LOOPS --}}
-
-                    {{-- @foreach ($teacher_courses as $course)
-                    {{
-                      $course->first_name
-                    }}
-                      @foreach ($course->courses as $teacherCourse)
-                        {{
-                          $teacherCourse->id
-                        }}
-                      @endforeach
-                    @endforeach  --}}
 
                     @foreach ($teacher_courses as $teacher)
                     @foreach ($teacher->courses as $course)
@@ -82,12 +68,6 @@
                           <span class="badge bg-danger">{{$teacher->status}}</span>
                         @endif
                       </td>
-                      {{-- <td>{{$teacher->sex}}</td> --}}
-                      {{-- <td>{{$teacher->created_at}}</td> --}}
-
-
-                      {{-- <td><span class="tag tag-success">Approved</span></td> --}}
-                      {{-- <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td> --}}
 
                           <td>
                               {{
@@ -96,9 +76,9 @@
                           </td>
                           <td>
                             <div class="btn-group">
-                              <a href="#" class="btn btn-danger">
-                                <i class="fas fa-times-circle "></i>
-                              </a>
+                              <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$course->id}}, this)">
+                                <i class="fas fa-times-circle"></i>
+                              </button>
                             </div>
                           </td> 
 
@@ -140,8 +120,8 @@
       }
 
       function destroy (id, refranec) {
-        // masged/admin/teacher/{teacher}
-        axios.delete('/masged/manager/teacher/' + id)
+        // masged/manager/teacher-course/{teacher_course}
+        axios.delete('/masged/manager/teacher-course/' + id)
           .then(function (response) {
             // handle success
             console.log(response);

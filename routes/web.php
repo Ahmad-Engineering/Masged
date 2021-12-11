@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MasgedController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeacherCourseController;
 use App\Models\TeacherCourse;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::resource('/masged', MasgedController::class);
     Route::resource('/student', StudentController::class);
     Route::resource('/course', CourseController::class);
+    Route::resource('/teacher-course', TeacherCourseController::class);
 
     Route::get('{course}/addcourse', [CourseController::class, 'showAddCourse'])->name('add.course');
     Route::post('{course}/addcourse/{teacher}/', [CourseController::class,'addCourse']);
