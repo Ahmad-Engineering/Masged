@@ -242,7 +242,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </li>
                   <li class="nav-item">
                     <a href="{{route('show.teacher.courses')}}" class="nav-link">
-                      <i class="fas fa-list-ol nav-icon"></i>
+                      <i class="fas fa-receipt nav-icon"></i>
                       <p>Show Teacher Courses</p>
                     </a>
                   </li>
@@ -290,6 +290,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="{{route('course.create')}}" class="nav-link">
                       <i class="far fa-plus-square nav-icon"></i>
                       <p>Craete</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('show.student-courses')}}" class="nav-link">
+                      <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                      <p>Show Student</p>
                     </a>
                   </li>
                 </ul>

@@ -15,6 +15,9 @@ class CreateStudentCoursesTable extends Migration
     {
         Schema::create('student_courses', function (Blueprint $table) {
             $table->id();
+
+            $table->string('course_name', 45);
+
             $table->foreignId('student_id');
             $table->foreign('student_id')->on('students')->references('id');
 

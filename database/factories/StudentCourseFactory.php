@@ -19,6 +19,7 @@ class StudentCourseFactory extends Factory
             //
             'student_id'=> Student::inRandomOrder()->first()->id,
             'course_id' => Course::inRandomOrder()->first()->id,
+            'course_name' => Course::inRandomOrder()->first()->name,
         ];
     }
 }

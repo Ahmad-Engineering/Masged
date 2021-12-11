@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Masged;
 use App\Models\Student;
 use Dotenv\Validator;
@@ -179,6 +180,15 @@ class StudentController extends Controller
                 'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function showStudentCourses () {
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        // $student_with_courses = Student::where('masged_name', $masged->name)
+        // ->with('courses')
+        // ->get();
+        $courses = Course::where('masged_name', $masged->name)->get();
+        return response()->view('admin.student.show-courses', ['courses' => $courses]);
     }
 
     /**

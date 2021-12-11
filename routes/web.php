@@ -45,8 +45,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('{course}/addstudent', [AddStudentToCourse::class, 'showAddingStudent'])->name('add.student');
     Route::post('{course}/addstudent/{student}/', [AddStudentToCourse::class,'addStudent']);
 
-
     Route::get('/show-teacher-courses', [TeacherController::class, 'showTeacherCourses'])->name('show.teacher.courses');
+
+    Route::get('/show-student-courses', [StudentController::class, 'showStudentCourses'])->name('show.student-courses');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
