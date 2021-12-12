@@ -191,6 +191,11 @@ class StudentController extends Controller
         return response()->view('admin.student.show-courses', ['courses' => $courses]);
     }
 
+    // public function showStudent (Request $request, Course $course) {
+    //     dd($course->id);
+    // }
+
+
     /**
      * Remove the specified resource from storage.
      *

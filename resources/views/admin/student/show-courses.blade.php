@@ -61,7 +61,7 @@
                         </td>
                         <td>
                           <div class="btn-group">
-                            <a href="#" class="btn btn-info">
+                            <a href="{{route('student-course.show', $course->id)}}" class="btn btn-info">
                               <i class="fab fa-get-pocket"></i>
                             </a>
                           </div>

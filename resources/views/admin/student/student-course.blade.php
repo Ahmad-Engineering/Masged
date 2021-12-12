@@ -8,7 +8,7 @@
 @section('small-title', 'student-courses')
 
 @section('style')
-    
+
 @endsection
 
 @section('content')
@@ -42,15 +42,37 @@
                       <th>#</th>
                       {{-- <th>Masged name</th> --}}
                       <th>Name</th>
-                      <th>Age</th>
                       <th>Status</th>
-                      <th>Course name</th>
                       <th>Settings</th>
                     </tr>
                   </thead>
                   <tbody>
 
                     {{-- BODY  --}}
+
+                    @foreach ($students as $student)
+                      @foreach ($student->courses as $course)
+                      <tr>
+                        <td>{{$student->id}}</td>
+                        <td>{{$student->first_name . ' ' . $student->last_name}}</td>
+                        <td>@if($student->status) <span class="badge bg-success">Active</span>
+                          @else
+                          <span class="badge bg-danger">Disabled</span>
+                          @endif
+                        </td>
+                        <td>
+                          <div class="btn-group">
+                            <a href="#" class="btn btn-danger">
+                              <i class="fas fa-times-circle"></i>
+                            </a>
+                          </div>
+                        </td>
+
+                        {{-- <td><span class="tag tag-success">Approved</span></td> --}}
+                        {{-- <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td> --}}
+                      </tr>
+                      @endforeach
+                    @endforeach
 
                   </tbody>
                 </table>

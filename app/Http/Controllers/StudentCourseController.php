@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Masged;
+use App\Models\Student;
 use App\Models\StudentCourse;
 use Illuminate\Http\Request;
 
@@ -47,6 +50,20 @@ class StudentCourseController extends Controller
     public function show(StudentCourse $studentCourse)
     {
         //
+        // dd($studentCourse);
+
+        $masged  = Masged::where('manager_id', auth()->user()->id)->first();
+
+        $course_id = $studentCourse->id;
+
+        // $students = StudentCourse::where('course_name', $studentCourse->name)->get();
+        $students = Student::where('masged_name', $masged->name)
+        ->with(['courses' => function ($query) use($course_id) {
+            $query->where('course_id', $course_id);
+        }])
+        ->get();
+
+        return response()->view('admin.student.student-course', ['students' => $students]);
     }
 
     /**

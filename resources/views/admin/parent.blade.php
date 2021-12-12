@@ -293,7 +293,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('show.student-courses')}}" class="nav-link">
+                    <a href="{{route('show.student.courses')}}" class="nav-link">
                       <i class="fas fa-chalkboard-teacher nav-icon"></i>
                       <p>Show Student</p>
                     </a>
