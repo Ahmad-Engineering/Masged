@@ -108,6 +108,21 @@ class StudentCourseController extends Controller
      */
     public function destroy(StudentCourse $studentCourse)
     {
+        $isDeleted = $studentCourse->delete();
         //
+
+        if ($isDeleted) {
+            return response()->json([
+                'icon' => 'success',
+                'title' => 'Success!',
+                'text' => 'Student removed successfully.',
+            ]);
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'title' => 'Failed!',
+                'text' => 'Failed to remove student from this course',
+            ]);
+        }
     }
 }

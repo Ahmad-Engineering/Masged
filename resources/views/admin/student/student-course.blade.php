@@ -62,9 +62,9 @@
                         </td>
                         <td>
                           <div class="btn-group">
-                            <a href="#" class="btn btn-danger">
-                              <i class="fas fa-times-circle"></i>
-                            </a>
+                            <button type="button" class="btn btn-danger" onclick="removeStudentFromCourse({{$course->id}}, this)">
+                              <i class="fas fa-trash"></i>
+                            </button>
                           </div>
                         </td>
 
@@ -90,7 +90,7 @@
 
 @section('scripts')
     <script>
-      function confirmDestroy(id, refranec) {
+      function removeStudentFromCourse (id, refranec) {
         Swal.fire({
           title: 'Are you sure?',
           text: "You won't be able to revert this!",
@@ -107,8 +107,8 @@
       }
 
       function destroy (id, refranec) {
-        // student/admin/teacher/{teacher}
-        axios.delete('/masged/manager/student/' + id)
+        // masged/manager/student-course/{student_course}
+        axios.delete('/masged/manager/student-course/' + id)
           .then(function (response) {
             // handle success
             console.log(response);
