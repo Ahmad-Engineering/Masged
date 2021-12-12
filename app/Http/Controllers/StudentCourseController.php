@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Masged;
 use App\Models\Student;
 use App\Models\StudentCourse;
+use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 
 class StudentCourseController extends Controller
@@ -52,7 +53,17 @@ class StudentCourseController extends Controller
         //
         // dd($studentCourse);
 
+
         $masged  = Masged::where('manager_id', auth()->user()->id)->first();
+
+        $count = Course::where('masged_name', $masged->name)
+        ->where('id', $studentCourse->id)
+        ->count();
+
+        if ($count == 0) {
+            return redirect()->route('show.student.courses');
+        }
+
 
         $course_id = $studentCourse->id;
 
