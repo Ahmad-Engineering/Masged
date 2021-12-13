@@ -54,27 +54,26 @@ class StudentCourseController extends Controller
         // dd($studentCourse);
 
 
-        $masged  = Masged::where('manager_id', auth()->user()->id)->first();
+        // $masged  = Masged::where('manager_id', auth()->user()->id)->first();
 
-        $count = Course::where('masged_name', $masged->name)
-        ->where('id', $studentCourse->id)
-        ->count();
+        // $count = Course::where('masged_name', $masged->name)
+        // ->where('id', $studentCourse->id)
+        // ->count();
 
-        if ($count == 0) {
-            return redirect()->route('show.student.courses');
-        }
+        // if ($count == 0) 
+        //     return redirect()->route('show.student.courses');
 
 
-        $course_id = $studentCourse->id;
+        // $course_id = $studentCourse->id;
 
-        // $students = StudentCourse::where('course_name', $studentCourse->name)->get();
-        $students = Student::where('masged_name', $masged->name)
-        ->with(['courses' => function ($query) use($course_id) {
-            $query->where('course_id', $course_id);
-        }])
-        ->get();
+        // // $students = StudentCourse::where('course_name', $studentCourse->name)->get();
+        // $students = Student::where('masged_name', $masged->name)
+        // ->with(['courses' => function ($query) use($course_id) {
+        //     $query->where('course_id', $course_id);
+        // }])
+        // ->get();
 
-        return response()->view('admin.student.student-course', ['students' => $students]);
+        // return response()->view('admin.student.student-course', ['students' => $students]);
     }
 
     /**

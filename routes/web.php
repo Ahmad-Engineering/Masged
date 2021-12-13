@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MasgedController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentCourseController;
+use App\Http\Controllers\StudentMarkController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherCourseController;
 use App\Models\TeacherCourse;
@@ -57,6 +58,8 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     // Route::get('/show-student-courses/{id}', 
     // [StudentController::class, 'showStudent'])
     // ->name('show.student.of.course');
+
+    Route::get('/show-student-mark/{id}/course', [StudentMarkController::class, 'showStudentPage'])->name('show.student.mark.page');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

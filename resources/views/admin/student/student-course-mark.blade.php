@@ -1,11 +1,11 @@
 
 @extends('admin.parent')
 
-@section('title', 'All Courses')
+@section('title', 'Students mark')
 
-@section('capital-title', 'Courses')
-@section('home-title', 'courses')
-@section('small-title', 'student-courses')
+@section('capital-title', 'Students mark')
+@section('home-title', 'Home')
+@section('small-title', 'student-marks')
 
 @section('style')
 
@@ -20,7 +20,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Courses</h3>
+                <h3 class="card-title">Students Marks</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -50,24 +50,21 @@
 
                     {{-- BODY  --}}
 
-                    @foreach ($courses as $course)
+                    
+                    @foreach ($students as $student)
+                    @foreach ($student->courses as $course)
                       <tr>
-                        <td>{{$course->id}}</td>
-                        <td>{{$course->name}}</td>
-                        <td>@if($course->status) <span class="badge bg-success">Active</span>
+                        <td>{{$student->id}}</td>
+                        <td>{{$student->first_name . ' ' . $student->last_name}}</td>
+                        <td>@if($student->status) <span class="badge bg-success">Active</span>
                           @else
                           <span class="badge bg-danger">Disabled</span>
                           @endif
                         </td>
                         <td>
                           <div class="btn-group">
-                            <a href="{{route('course.show', $course->id)}}" class="btn btn-info">
-                              <i class="fab fa-get-pocket"></i>
-                            </a>
-                          </div>
-                          <div class="btn-group">
-                            <a href="{{route('show.student.mark.page', $course->id)}}" class="btn btn-warning">
-                              <i class="fas fa-bookmark"></i>
+                            <a href="#" class="btn btn-warning">
+                              <i class="">Add mark</i>
                             </a>
                           </div>
                         </td>
@@ -76,6 +73,8 @@
                         {{-- <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td> --}}
                       </tr>
                     @endforeach
+                    @endforeach
+
 
                   </tbody>
                 </table>

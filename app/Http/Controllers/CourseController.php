@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Masged;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\TeacherCourse;
 use Dotenv\Validator;
@@ -152,6 +153,24 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+        $masged  = Masged::where('manager_id', auth()->user()->id)->first();
+
+        $count = Course::where('masged_name', $masged->name)
+        ->where('id', $course->id)
+        ->count();
+
+        if ($count == 0)
+            return redirect()->view('admin.student.show-courses');
+
+        $course_id = $course->id;
+
+        $students = Student::where('masged_name', $masged->name)
+        ->with(['courses' => function ($query) use($course_id) {
+            $query->where('course_id', $course_id);
+        }])
+        ->get();
+
+        return response()->view('admin.student.student-course', ['students' => $students]);
     }
 
     /**
