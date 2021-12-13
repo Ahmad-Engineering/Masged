@@ -60,6 +60,8 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     // ->name('show.student.of.course');
 
     Route::get('/show-student-mark/{id}/course', [StudentMarkController::class, 'showStudentPage'])->name('show.student.mark.page');
+    Route::get('/show-student-mark/{course_id}/course/{student_id}/student', [StudentMarkController::class, 'showMarkPage'])->name('give.mark.from.admin');
+    Route::post('/show-student-mark/submit-mark', [StudentMarkController::class, 'submitMark']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

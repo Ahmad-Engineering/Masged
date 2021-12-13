@@ -20,4 +20,8 @@ class Course extends Model
     public function masged() {
         return $this->belongsTo(Masged::class, 'masged_name', 'name');
     }
+
+    public function marks () {
+        return $this->hasMany(Mark::class, 'course_id', 'id');
+    }
 }

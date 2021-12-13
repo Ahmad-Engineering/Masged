@@ -63,7 +63,7 @@
                         </td>
                         <td>
                           <div class="btn-group">
-                            <a href="#" class="btn btn-warning">
+                            <a href="{{route('give.mark.from.admin',[ $real_id, $student->id])}}" class="btn btn-warning">
                               <i class="">Add mark</i>
                             </a>
                           </div>

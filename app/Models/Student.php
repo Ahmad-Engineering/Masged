@@ -30,4 +30,8 @@ class Student extends Authenticatable
     public function qurans () {
         return $this->hasMany(QuranStudent::class, 'student_id', 'id');
     }
+
+    public function marks () {
+        return $this->hasMany(Mark::class, 'student_id', 'id');
+    }
 }
