@@ -47,7 +47,7 @@
                       <th>Age</th>
                       <th>status</th>
                       <th>Gender</th>
-                      {{-- <th>Created at</th> --}}
+                      <th>Created at</th>
                       <th>Updated at</th>
                       <th>Settings</th>
                     </tr>
@@ -70,8 +70,8 @@
                         </td>
                         <td>{{$teacher->gender}}</td>
                         {{-- <td>{{$teacher->sex}}</td> --}}
-                        {{-- <td>{{$teacher->created_at}}</td> --}}
-                        <td>{{$teacher->updated_at}}</td>
+                        <td>{{$teacher->created_at->format('d-M-Y')}}</td>
+                        <td>{{$teacher->updated_at->format('d-M-Y')}}</td>
 
                         <td>
                           <div class="btn-group">

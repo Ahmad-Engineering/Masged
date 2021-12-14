@@ -61,8 +61,8 @@
                           <span class="badge bg-danger">Diabled</span>
                           @endif
                         </td>
-                        <td>{{$course->created_at}}</td>
-                        <td>{{$course->updated_at}}</td>
+                        <td>{{$course->created_at->format('d-M-Y')}}</td>
+                        <td>{{$course->updated_at->format('d-M-Y')}}</td>
                         <td>
                           <div class="btn-group">
                             <a href="{{route('show.student.marks.in.course', $course->id)}}" class="btn btn-warning">
