@@ -71,8 +71,8 @@
                           @endif
                         </td>
                         <td>{{$student->gender}}</td>
-                        <td>{{$student->created_at}}</td>
-                        <td>{{$student->updated_at}}</td>
+                        <td>{{$student->created_at->format('d-M-Y')}}</td>
+                        <td>{{$student->updated_at->format('d-M-Y')}}</td>
                         <td>
                           <div class="btn-group">
                             <a href="{{route('student.edit', $student->id)}}" class="btn btn-info">

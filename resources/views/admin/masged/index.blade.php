@@ -56,8 +56,8 @@
                         <td>{{$masged->name}}</td>
                         <td>{{$masged->info}}</td>
                         <td>{{$masged->location}}</td>
-                        <td>{{$masged->created_at}}</td>
-                        <td>{{$masged->updated_at}}</td>
+                        <td>{{$masged->created_at->format('d-M-Y')}}</td>
+                        <td>{{$masged->updated_at->format('d-M-Y')}}</td>
                         <td>
                           <div class="btn-group">
                             <a href="{{route('masged.edit', $masged->id)}}" class="btn btn-info">
