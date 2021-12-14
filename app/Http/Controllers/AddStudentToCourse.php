@@ -15,6 +15,13 @@ class AddStudentToCourse extends Controller
 {
     //
     public function showAddingStudent (Course $course) {
+
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $students = Student::where('masged_name', $masged->name)->get();
         return response()->view('admin.course.addStudentToCourse', ['course' => $course, 'students' => $students]);
@@ -64,6 +71,11 @@ class AddStudentToCourse extends Controller
     // }
 
     public function addStudent (Course $course, Student $student) {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $count = StudentCourse::where('student_id', $student->id)
         ->where('course_id', $course->id)
         ->count();

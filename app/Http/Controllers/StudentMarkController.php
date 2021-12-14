@@ -17,6 +17,11 @@ class StudentMarkController extends Controller
     //
 
     public function showStudentPage ($id) {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $count = Course::Where('masged_name', $masged->name)
         ->where('id', $id)
@@ -37,6 +42,11 @@ class StudentMarkController extends Controller
 
 
     public function showMarkPage ($course_id, $student_id) {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
 
         // IS THIS COURSE BELONGS TO THIS MASGED OR NOT ?
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
@@ -60,6 +70,11 @@ class StudentMarkController extends Controller
     }
 
     public function submitMark (Request $request) {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
 
         $validator = Validator($request->all(), [
             'mark' => 'required|numeric|between:0,100.00'
@@ -72,25 +87,40 @@ class StudentMarkController extends Controller
             $count = Course::where('id', $request->course_id)
             ->where('masged_name', $masged->name)
             ->count();
+            $student = Student::where('id', $request->student_id)->first();
     
             if ($count == 0)
                 return redirect()->route('admin.parent');
-            
-            $course = Course::where('id', $request->course_id)
-            ->where('masged_name', $masged->name)
-            ->first();
+
+            $count = Mark::where('course_id', $request->course_id)
+            ->where('student_id', $request->student_id)
+            ->count();
     
-            $mark = new Mark();
-            $mark->student_id = $request->student_id;
-            $mark->course_id = $request->course_id;
-            $mark->course_name = $course->name;
-            $mark->marks = $request->mark;
+            if ($count == 0) {
 
-            $isCreated = $mark->save();
+                $course = Course::where('id', $request->course_id)
+                ->where('masged_naذme', $masged->name)
+                ->first();
 
-            return response()->json([
-                'message' => $isCreated ? 'Marks saved successfully' : 'Failed to save the message'
-            ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        
+                $mark = new Mark();
+                $mark->student_id = $request->student_id;
+                $mark->course_id = $request->course_id;
+                $mark->course_name = $course->name;
+                $mark->marks = $request->mark;
+
+                $isCreated = $mark->save();
+
+                return response()->json([
+                    'message' => $isCreated ? 'Mark ' . $request ->mark . ' saved successfully for ' . $student->first_name . ' ' . $student->last_name : 'Failed to save the message'
+                ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+                
+            }else {
+                return response()->json([
+                    'message' => 'You are add a mark for ' . $student->first_name . ' ' . $student->last_name . ' before.'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+            
 
         }else {
             return response()->json([

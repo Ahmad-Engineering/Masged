@@ -19,6 +19,14 @@ class TeacherController extends Controller
      */
     public function index()
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
         // return view('admin.teacher.index');
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
@@ -39,7 +47,17 @@ class TeacherController extends Controller
      */
     public function create()
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+
         return response()->view('admin.teacher.create');
     }
 
@@ -51,6 +69,15 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
@@ -106,6 +133,14 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
         // $masged = Masged::where('manager_id', auth()->user()->id)->first();
         // $reTeacher = Teacher::all();
@@ -138,6 +173,15 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
@@ -171,6 +215,14 @@ class TeacherController extends Controller
     }
 
     public function showTeacherCourses () {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
 
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $teacher_courses = Teacher::where('masged_id', $masged->id)
@@ -188,6 +240,14 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
         $isDeleted = $teacher->delete();
 

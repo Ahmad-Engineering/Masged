@@ -21,12 +21,20 @@ class CourseController extends Controller
     public function index()
     {
         //
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $data = Course::where('masged_name', $masged->name)->get();
         return response()->view('admin.course.index', ['courses' => $data]);
     }
 
     public function showAddCourse (Course $course) {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $courses = Course::where('masged_name', $masged->name)->get();
         $teachers = Teacher::where('masged_id', $masged->id)->get();
@@ -54,6 +62,10 @@ class CourseController extends Controller
     }
 
     public function addCourse (Request $request, Course $course, Teacher $teacher) {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
 
         if ($course->status && $teacher->active) {
 
@@ -105,6 +117,10 @@ class CourseController extends Controller
      */
     public function create()
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
         return response()->view('admin.course.create');
     }
@@ -117,6 +133,12 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:40|unique:courses',
             'info' => 'string|max:100',
@@ -152,6 +174,12 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
         $masged  = Masged::where('manager_id', auth()->user()->id)->first();
 
@@ -181,6 +209,12 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $course_collection = Course::where('masged_name', $masged->name)->get();
@@ -202,6 +236,12 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:40',
             'info' => 'string|min:1|max:100',
@@ -237,6 +277,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+            
         //
         $isDeleted = $course->delete();
 

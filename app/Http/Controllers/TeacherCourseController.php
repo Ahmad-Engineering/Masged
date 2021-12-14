@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masged;
 use App\Models\TeacherCourse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,6 +82,11 @@ class TeacherCourseController extends Controller
      */
     public function destroy(TeacherCourse $teacherCourse)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $isDeleted = $teacherCourse->delete();
 
         if ($isDeleted) {

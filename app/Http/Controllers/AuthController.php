@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Masged;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,11 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     //
-    public function showLogin (Request $request, $guard) {
+    public function showLogin (Request $request, $guard) 
+    {
         return response()->view('admin.login', ['guard' => $guard]);
     }
 
     public function login (Request $request) {
+
+
         $validator = Validator($request->all(), [
             'email' => 'required|email|min:3|max:30',
             'password' => 'required|string|min:3|max:30',

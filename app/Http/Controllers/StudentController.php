@@ -20,6 +20,11 @@ class StudentController extends Controller
      */
     public function index()
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
         // echo 'WE ARE IN THE :: INDEX';
         $count = Masged::where('manager_id', auth()->user()->id)->count();
@@ -43,6 +48,11 @@ class StudentController extends Controller
      */
     public function create()
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
         // echo 'WE ARE IN THE :: CREATE';
         return response()->view('admin.student.create');
@@ -56,6 +66,11 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
@@ -120,6 +135,11 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         //
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         $student_collection = Student::where('masged_name', $masged->name)->get();
@@ -141,6 +161,11 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'first_name' => 'required|string|min:3|max:30',
             'last_name' => 'required|string|min:3|max:30',
@@ -183,6 +208,11 @@ class StudentController extends Controller
     }
 
     public function showStudentCourses () {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $masged = Masged::where('manager_id', auth()->user()->id)->first();
         // $student_with_courses = Student::where('masged_name', $masged->name)
         // ->with('courses')
@@ -204,6 +234,11 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+            
         //
         $isDeleted = $student->delete();
 

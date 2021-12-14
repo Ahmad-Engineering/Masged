@@ -107,6 +107,11 @@ class StudentCourseController extends Controller
      */
     public function destroy(StudentCourse $studentCourse)
     {
+        // IS THERE AN MASGED ?
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+            
         $isDeleted = $studentCourse->delete();
         //
 
