@@ -34,7 +34,12 @@ Route::prefix('masged')->group(function () {
 });
 
 Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () {
-    Route::view('/', 'admin.parent')->name('admin.parent');
+    // Route::view('/', 'admin.parent')->name('admin.parent');
+
+    Route::get('/', [StudentController::class, 'userNumbers'])->name('admin.parent');
+
+    // Route::get('/student-number', [StudentController::class, 'studentNumbers'])->name('student.no');
+
 
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);
