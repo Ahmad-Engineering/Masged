@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddStudentToCourse;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MarkController;
 use App\Http\Controllers\MasgedController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentCourseController;
@@ -62,6 +63,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('/show-student-mark/{id}/course', [StudentMarkController::class, 'showStudentPage'])->name('show.student.mark.page');
     Route::get('/show-student-mark/{course_id}/course/{student_id}/student', [StudentMarkController::class, 'showMarkPage'])->name('give.mark.from.admin');
     Route::post('/show-student-mark/submit-mark', [StudentMarkController::class, 'submitMark']);
+
+    Route::get('/student-marks/show', [MarkController::class, 'showCourses'])->name('student.marks.course');
+    Route::get('/student-marks/show/{course_id}/course', [MarkController::class, 'showMarks'])->name('show.student.marks.in.course');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

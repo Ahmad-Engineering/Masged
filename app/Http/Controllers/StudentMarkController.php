@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\StudentCourse;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Match_;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -69,7 +70,7 @@ class StudentMarkController extends Controller
         return response()->view('admin.student.add-mark', ['course' => $course, 'student' => $student]);
     }
 
-    public function submitMark (Request $request) {
+    public function submitMark (Request $request, Mark $mark) {
         // IS THERE AN MASGED ?
         $count = Masged::where('manager_id', auth()->user()->id)->count();
         if ($count == 0)
@@ -99,7 +100,7 @@ class StudentMarkController extends Controller
             if ($count == 0) {
 
                 $course = Course::where('id', $request->course_id)
-                ->where('masged_naذme', $masged->name)
+                ->where('masged_name', $masged->name)
                 ->first();
 
         
@@ -116,9 +117,23 @@ class StudentMarkController extends Controller
                 ], $isCreated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
                 
             }else {
-                return response()->json([
-                    'message' => 'You are add a mark for ' . $student->first_name . ' ' . $student->last_name . ' before.'
-                ], Response::HTTP_BAD_REQUEST);
+                $mark = Mark::where('course_id', $request->course_id)
+                ->where('student_id', $request->student_id)
+                ->first();
+
+                $mark->marks = $request->mark;
+                $isSaved = $mark->save();
+
+
+                if ($isSaved) {
+                    return response()->json([
+                        'message' => 'You are add a the new mark ' . $mark->marks . ' for '. $student->first_name . ' ' . $student->last_name . ' student.'
+                    ], Response::HTTP_OK);
+                }else {
+                    return response()->json([
+                        'message' => 'Failed to save the new mark.'
+                    ], Response::HTTP_BAD_REQUEST);
+                }
             }
             
 
