@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Circle;
 use App\Models\Masged;
+use Dotenv\Validator;
+use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CircleController extends Controller
 {
@@ -34,7 +37,12 @@ class CircleController extends Controller
      */
     public function create()
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
+
+        return response()->view('admin.circle.create');
     }
 
     /**
@@ -45,7 +53,58 @@ class CircleController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|min:3|max:30',
+            // 'info' => 'string|min:3|max:30'
+        ]);
         //
+        if (!$validator->fails()) {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
+
+            // IF THIS CIRCLE FOR THIS MASGED CREATED BEFORE OF NOT ?
+            $count = Circle::where('name', $request->name)
+            ->where('masged_id', $masged->id)
+            ->count();
+
+            if ($count == 0) {
+
+                // CREATE A NEW CIRCLE IN THIS MASGED
+                $circle = new Circle();
+                $circle->name = $request->name;
+                $circle->info = $request->info;
+                $circle->masged_id = $masged->id;
+
+                $isCreated = $circle->save();
+
+                if ($isCreated) {
+
+                    // IS THIS CIRCLE CREATED ?
+                    return response()->json([
+                        'message' => 'Circle ' . $request->name . ' is created successfully'
+                    ], Response::HTTP_OK);
+
+                }else {
+
+                    //  AN ERROR WITH CREATING THIS CIRCLE IN THIS MAGED
+                    return response()->json([
+                        'message' => 'Failed to create ' . $request->name ,
+                    ], Response::HTTP_BAD_REQUEST);
+
+                }
+
+            }else {
+                return response()->json([
+                    'message' => 'You are created a circle in this name before.'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+            // END IF THIS CIRCLE FOR THIS MASGED CREATED BEFORE OF NOT ?
+
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

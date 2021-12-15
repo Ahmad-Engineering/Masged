@@ -287,6 +287,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('circle.create')}}" class="nav-link">
+                      <i class="fas fa-plus-square nav-icon"></i>
+                      <p>Create</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
