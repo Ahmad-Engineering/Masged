@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddStudentToCourse;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CircleController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\MasgedController;
@@ -47,6 +48,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::resource('/course', CourseController::class);
     Route::resource('/teacher-course', TeacherCourseController::class);
     Route::resource('/student-course', StudentCourseController::class);
+    Route::resource('/circle', CircleController::class);
 
     Route::get('{course}/addcourse', [CourseController::class, 'showAddCourse'])
     ->name('add.course');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Circle;
+use App\Models\Masged;
 use Illuminate\Http\Request;
 
 class CircleController extends Controller
@@ -14,7 +15,16 @@ class CircleController extends Controller
      */
     public function index()
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $circles = Circle::where('masged_id', $masged->id)->get();
+
+        return response()->view('admin.circle.index', [
+            'circles' => $circles
+        ]);
     }
 
     /**

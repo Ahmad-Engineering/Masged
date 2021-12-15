@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Masged;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CircleFactory extends Factory
@@ -15,6 +16,9 @@ class CircleFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->word(),
+            'info' => $this->faker->word(),
+            'masged_id' => Masged::inRandomOrder()->first()->id
         ];
     }
 }

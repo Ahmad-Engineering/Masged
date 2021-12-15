@@ -273,6 +273,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-circle-notch"></i>
+                  <p>
+                    Circle
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('circle.index')}}" class="nav-link">
+                      <i class="fas fa-list-ul nav-icon"></i>
+                      <p>Show</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
                   <i class="nav-icon fab fa-steam-square"></i>
                   <p>
                     Courses

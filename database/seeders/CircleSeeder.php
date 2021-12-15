@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Circle;
 use Illuminate\Database\Seeder;
 
 class CircleSeeder extends Seeder
@@ -14,5 +15,6 @@ class CircleSeeder extends Seeder
     public function run()
     {
         //
+        Circle::factory(100)->create();
     }
 }
