@@ -34,4 +34,8 @@ class Student extends Authenticatable
     public function marks () {
         return $this->hasMany(Mark::class, 'student_id', 'id');
     }
+
+    public function circle () {
+        return $this->belongsTo(Circle::class, 'circle_id', 'id');
+    }
 }

@@ -24,4 +24,8 @@ class Masged extends Model
     public function courses () {
         return $this->hasMany(Course::class , 'masged_name', 'name');
     }
+
+    public function circles () {
+        return $this->hasMany(Circle::class, 'masged_id', 'id');
+    }
 }

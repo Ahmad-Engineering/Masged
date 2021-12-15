@@ -19,6 +19,9 @@ class CreateQuransTable extends Migration
             $table->integer('from_page');
             $table->integer('to_page');
             // $table->enum('status', ['Done', 'Waiting', 'Canceled'])->default('Waiting');
+
+            $table->foreignId('circle_id');
+            $table->foreign('circle_id')->on('circles')->references('id');
             $table->timestamps();
         });
     }
