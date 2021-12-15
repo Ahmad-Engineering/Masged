@@ -64,6 +64,14 @@
                       <td>{{$circle->created_at->format('d-M-Y')}}</td>
                       <td>{{$circle->updated_at->format('d-M-Y')}}</td>
 
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$circle->id}}, this)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+
                       {{-- THIS IS THE CIRCLE SETTINGS --}}
                       {{-- <td>
                         <div class="btn-group">

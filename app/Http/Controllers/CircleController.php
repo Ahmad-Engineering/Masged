@@ -149,6 +149,25 @@ class CircleController extends Controller
      */
     public function destroy(Circle $circle)
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $isDeleted = $circle->delete();
+
+        if ($isDeleted) {
+            return response()->json([
+                'icon' => 'success',
+                'text' => $circle->name . ' deleted successfully',
+                'title' => 'Deleted!',
+            ]);
+        }else {
+            return response()->json([
+                'icon' => 'error',
+                'text' => $circle->name . ' failed to delete',
+                'title' => 'Failed!',
+            ]);
+        }
         //
     }
 }
