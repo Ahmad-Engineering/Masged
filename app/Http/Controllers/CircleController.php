@@ -53,6 +53,10 @@ class CircleController extends Controller
      */
     public function store(Request $request)
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3|max:30',
             // 'info' => 'string|min:3|max:30'
@@ -126,7 +130,13 @@ class CircleController extends Controller
      */
     public function edit(Circle $circle)
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
         //
+        return response()->view('admin.circle.edit', [
+            'circle' => $circle
+        ]);
     }
 
     /**
@@ -138,7 +148,59 @@ class CircleController extends Controller
      */
     public function update(Request $request, Circle $circle)
     {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|min:3|max:30',
+            // 'info' => 'string|min:3|max:30'
+        ]);
         //
+
+        if (!$validator->fails()) {
+
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
+
+            // IF THIS CIRCLE FOR THIS MASGED CREATED BEFORE OF NOT ?
+            $count = Circle::where('name', $request->name)
+            ->where('masged_id', $masged->id)
+            ->count();
+
+            if ($count  == 0) {
+
+                $circle->name = $request->name;
+                $circle->info = $request->info;
+                $circle->masged_id = $masged->id;
+
+                $isUpdated = $circle->save();
+
+                if ($isUpdated) {
+
+                    return response()->json([
+                        'message' => $circle->name . ' updated successfully',
+                    ], Response::HTTP_OK);
+
+                }else {
+
+                    return response()->json([
+                        'message' => 'Failed to update ' . $request->name ,
+                    ], Response::HTTP_BAD_REQUEST);
+                
+                }
+                
+            }else {
+                return response()->json([
+                    'message' => 'You are created a circle in this name before.'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

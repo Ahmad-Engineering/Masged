@@ -70,6 +70,12 @@
                             <i class="fas fa-trash"></i>
                           </button>
                         </div>
+
+                        <div class="btn-group">
+                          <a href="{{route('circle.edit', $circle->id)}}" class="btn btn-info">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                        </div>
                       </td>
 
                       {{-- THIS IS THE CIRCLE SETTINGS --}}
