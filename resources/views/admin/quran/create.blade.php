@@ -23,9 +23,14 @@
                 @csrf
               <div class="card-body">
                 <div class="form-group">
+                  <label for="circle_no">Circle no.</label>
+                  <input type="text" class="form-control" id="circle_no" readonly
+                  value="{{$circle->name}}">
+              </div>
+                <div class="form-group">
                   <label for="name">Name</label>
                   <input type="text" class="form-control" id="name" placeholder="Enter name"
-                  value="{{$student->first_name . ' ' . $student->last_name}}">
+                  value="{{$student->first_name . ' ' . $student->last_name}}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="part_no">Part no.</label>
@@ -38,11 +43,6 @@
                 <div class="form-group">
                   <label for="to_page">To page</label>
                   <input type="text" class="form-control" id="to_page" placeholder="To page">
-                </div>
-                <div class="form-group">
-                    <label for="circle_no">Circle no.</label>
-                    <input type="text" class="form-control" id="circle_no" readonly
-                    value="{{$circle->name}}">
                 </div>
                 {{-- THERE ARE SOME WORK IN GENEDER IN ANOTHER UPDATE --}}
               </div>
