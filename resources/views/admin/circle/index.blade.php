@@ -67,19 +67,25 @@
                       <td>
                         <div class="btn-group">
                           <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$circle->id}}, this)">
-                            <i class="fas fa-trash"></i>
+                            <i class="">Delete</i>
                           </button>
                         </div>
 
                         <div class="btn-group">
                           <a href="{{route('circle.edit', $circle->id)}}" class="btn btn-info">
-                            <i class="fas fa-edit"></i>
+                            <i class="">Edit</i>
                           </a>
                         </div>
 
                         <div class="btn-group">
                           <a href="{{route('add.student.to.circle', $circle->id)}}" class="btn btn-warning">
-                            <i class="fab fa-get-pocket"></i>
+                            <i class="">Add Student</i>
+                          </a>
+                        </div>
+
+                        <div class="btn-group">
+                          <a href="{{route('show.student.circle', $circle->id)}}" class="btn btn-info">
+                            <i class="">Show Student</i>
                           </a>
                         </div>
                       </td>

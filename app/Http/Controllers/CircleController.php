@@ -247,6 +247,22 @@ class CircleController extends Controller
 
     }
 
+    public function showStudentCircle ($id) {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
+        $students = Student::where('masged_name', $masged->name)
+        ->where('circle_id', $id)
+        ->get();
+
+        return response()->view('admin.circle.student-circle', [
+            'students' =>$students
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
