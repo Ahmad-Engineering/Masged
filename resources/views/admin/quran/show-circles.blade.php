@@ -56,6 +56,17 @@
                         <td>{{$circle->info}}</td>
                         <td>{{$circle->created_at->format('d-M-Y')}}</td>
                         <td>{{$circle->updated_at->format('d-M-Y')}}</td>
+
+                        <td>
+                          
+                          <div class="btn-group">
+                            <a href="#" class="btn btn-info">
+                              <i class="fas fa-plus-circle"></i>
+                            </a>
+                          </div>
+
+                        </td>
+
                         {{-- <td>
                           <div class="btn-group">
                             <a href="{{route('circle.edit', $circle->id)}}" class="btn btn-info">

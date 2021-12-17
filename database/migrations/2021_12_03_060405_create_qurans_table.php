@@ -22,6 +22,10 @@ class CreateQuransTable extends Migration
 
             $table->foreignId('circle_id');
             $table->foreign('circle_id')->on('circles')->references('id');
+
+            $table->foreignId('student_id');
+            $table->foreign('student_id')->on('students')->references('id');
+            
             $table->timestamps();
         });
     }

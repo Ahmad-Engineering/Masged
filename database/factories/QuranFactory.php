@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Circle;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuranFactory extends Factory
@@ -18,6 +20,8 @@ class QuranFactory extends Factory
             'part_no' => $this->faker->numberBetween(1, 30),
             'from_page' => $this->faker->numberBetween(1, 600),
             'to_page' => $this->faker->numberBetween(1, 600),
+            'circle_id' => Circle::inRandomOrder()->first()->id,
+            'student_id' => Student::inRandomOrder()->first()->id,
             // 'status' => $this->faker->randomElement(['Done', 'Waiting', 'Canceled']),
         ];
     }

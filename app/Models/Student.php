@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Queue\Console\RetryBatchCommand;
 
 class Student extends Authenticatable
 {
@@ -27,15 +27,15 @@ class Student extends Authenticatable
         return $this->hasMany(StudentTeacher::class, 'student_id', 'id');
     }
 
-    public function qurans () {
-        return $this->hasMany(QuranStudent::class, 'student_id', 'id');
-    }
-
     public function marks () {
         return $this->hasMany(Mark::class, 'student_id', 'id');
     }
 
     public function circle () {
         return $this->belongsTo(Circle::class, 'circle_id', 'id');
+    }
+
+    public function qurans () {
+        return $this->hasMany(Quran::class, 'quran_id', 'id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Circle;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\Manager;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         Manager::factory(10)->create();
         Masged::factory(10)->create();
+        Circle::factory(100)->create();
         Student::factory(100)->create();
         Teacher::factory(10)->create();
         Course::factory(10)->create();
@@ -34,7 +36,6 @@ class DatabaseSeeder extends Seeder
         Degree::factory(10)->create();
 
         
-        QuranStudent::factory(10)->create();
         StudentCourse::factory(10)->create();
         StudentTeacher::factory(10)->create();
         TeacherCourse::factory(10)->create();

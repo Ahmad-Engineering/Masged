@@ -261,22 +261,32 @@ class StudentController extends Controller
     public function userNumbers (Request $request) {
         // GET NUMBERS OF ALL USERS IN THE SYSTEM
 
-        $masged = Masged::where('manager_id', auth()->user()->id)->first();
-        $student_no = Student::where('masged_name', $masged->name)->count();
-        $course_no = Course::where('masged_name', $masged->name)->count();
-        $teacher_no = Teacher::where('masged_id', $masged->id)->count();
-        $masged_no = Masged::where('manager_id', auth()->user()->id)->count();
-
-        // $this->Session::set('student_no', $student_no);
-        // $this->Session::set('teacher_no', $teacher_no);
-        // $this->Session::set('masged_no', $masged_no);
-        // $this->Session::set('course_no', $course_no);
-
-        $request->session()->put('student_no', $student_no);
-        $request->session()->put('course_no', $course_no);
-        $request->session()->put('teacher_no', $teacher_no);
-        $request->session()->put('masged_no', $masged_no);
-
-        return response()->view('admin.parent');
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0){
+            $request->session()->put('student_no', 0);
+            $request->session()->put('course_no', 0);
+            $request->session()->put('teacher_no', 0);
+            $request->session()->put('masged_no', 0);
+    
+            return response()->view('admin.parent');
+        } else {
+            $masged = Masged::where('manager_id', auth()->user()->id)->first();
+            $student_no = Student::where('masged_name', $masged->name)->count();
+            $course_no = Course::where('masged_name', $masged->name)->count();
+            $teacher_no = Teacher::where('masged_id', $masged->id)->count();
+            $masged_no = Masged::where('manager_id', auth()->user()->id)->count();
+    
+            // $this->Session::set('student_no', $student_no);
+            // $this->Session::set('teacher_no', $teacher_no);
+            // $this->Session::set('masged_no', $masged_no);
+            // $this->Session::set('course_no', $course_no);
+    
+            $request->session()->put('student_no', $student_no);
+            $request->session()->put('course_no', $course_no);
+            $request->session()->put('teacher_no', $teacher_no);
+            $request->session()->put('masged_no', $masged_no);
+    
+            return response()->view('admin.parent');
+        }
     }
 }

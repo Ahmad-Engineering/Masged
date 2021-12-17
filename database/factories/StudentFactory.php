@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Circle;
 use App\Models\Masged;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,7 @@ class StudentFactory extends Factory
             'age'=>$this->faker->numberBetween(5, 70),
             'status'=>$this->faker->boolean(),
             'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'circle_id' => Circle::inRandomOrder()->first()->id,
         ];
     }
 }

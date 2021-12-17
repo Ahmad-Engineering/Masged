@@ -9,11 +9,12 @@ class Quran extends Model
 {
     use HasFactory;
 
-    public function students () {
-        return $this->hasMany(QuranStudent::class, 'quran_id', 'id');
-    }
-
     public function circle () {
         return $this->belongsTo(Circle::class, 'circle_id', 'id');
     }
+
+    public function student () {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
+    }
+
 }
