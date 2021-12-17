@@ -86,6 +86,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
 
     Route::get('/show-student-circle/{id}/circle', [CircleController::class, 'showStudentCircle'])->name('show.student.circle');
     Route::post('/show-student-circle/remove', [CircleController::class, 'removeStudentFromCircle']);
+    Route::get('/show-keeps', [CircleController::class, 'showKeeps'])->name('show.keeps');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

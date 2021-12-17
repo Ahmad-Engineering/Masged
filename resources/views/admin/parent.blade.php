@@ -349,6 +349,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                   </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('show.keeps')}}" class="nav-link">
+                      <i class="fas fa-th-list nav-icon"></i>
+                      <p>Show keeps</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-header">General Management</li>
               <li class="nav-item">

@@ -299,6 +299,24 @@ class CircleController extends Controller
 
     }
 
+    public function showKeeps () {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+
+        $circles = Circle::where('masged_id', $masged->id)
+        ->with('students')
+        ->with('qurans')
+        ->has('students')
+        ->get();
+        
+        return response()->view('admin.mark.show-keeping', [
+            'circles' => $circles
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
