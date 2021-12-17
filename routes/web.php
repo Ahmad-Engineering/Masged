@@ -6,6 +6,7 @@ use App\Http\Controllers\CircleController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\MasgedController;
+use App\Http\Controllers\QuranController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\StudentMarkController;
@@ -49,6 +50,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::resource('/teacher-course', TeacherCourseController::class);
     Route::resource('/student-course', StudentCourseController::class);
     Route::resource('/circle', CircleController::class);
+    Route::resource('/quran-circle', QuranController::class);
 
     Route::get('{course}/addcourse', [CourseController::class, 'showAddCourse'])
     ->name('add.course');
