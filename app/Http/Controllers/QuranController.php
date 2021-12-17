@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Circle;
 use App\Models\Masged;
 use App\Models\Quran;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class QuranController extends Controller
@@ -26,6 +27,24 @@ class QuranController extends Controller
         return response()->view('admin.quran.show-circles', [
             'circles' => $circles
         ]);
+    }
+
+    public function getCircle ($circleId) {
+        $count = Masged::where('manager_id', auth()->user()->id)
+        ->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+        
+        $masged = Masged::where('manager_id', auth()->user()->id)
+        ->first();
+        $count = Circle::where('masged_id', $masged->id)
+        ->where('id', $circleId)
+        ->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $students = Student::where('circle_id', $circleId)->get();
+        dd($students);
     }
 
     /**

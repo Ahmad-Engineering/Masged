@@ -60,7 +60,7 @@
                         <td>
                           
                           <div class="btn-group">
-                            <a href="#" class="btn btn-info">
+                            <a href="{{route('spacific.circle', $circle->id)}}" class="btn btn-info">
                               <i class="fas fa-plus-circle"></i>
                             </a>
                           </div>

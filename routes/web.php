@@ -76,5 +76,7 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('/student-marks/show', [MarkController::class, 'showCourses'])->name('student.marks.course');
     Route::get('/student-marks/show/{course_id}/course', [MarkController::class, 'showMarks'])->name('show.student.marks.in.course');
 
+    Route::get('/circle-brows/{id}/circle', [QuranController::class, 'getCircle'])->name('spacific.circle');
+
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
