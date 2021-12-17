@@ -1,11 +1,11 @@
 
 @extends('admin.parent')
 
-@section('title', 'Circles')
+@section('title', 'Students')
 
-@section('capital-title', 'Circles')
-@section('home-title', 'circles')
-@section('small-title', 'student-circles')
+@section('capital-title', 'Students to add')
+@section('home-title', 'students')
+@section('small-title', 'student-students')
 
 @section('style')
     
@@ -20,7 +20,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Circles</h3>
+                <h3 class="card-title">Students</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -41,71 +41,50 @@
                     <tr>
                       <th>#</th>
                       <th>Name</th>
-                      <th>Info</th>
+                      {{-- <th>Info</th> --}}
                       {{-- <th>Status</th> --}}
-                      <th>Craeted at</th>
-                      <th>Updated at</th>
+                      {{-- <th>Craeted at</th> --}}
+                      {{-- <th>Updated at</th> --}}
                       <th>Settings</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($circles as $circle)
+                    @foreach ($students as $student)
                     <tr>
-                      <td>{{$circle->id}}</td>
-                      <td>{{$circle->name}}</td>
-                      <td>{{$circle->info}}</td>
-                      {{-- <td>
-                        @if($circle->status)
-                        <span class="badge bg-success">Active</span>
-                        @else
-                        <span class="badge bg-danger">Diabled</span>
-                        @endif
-                      </td> --}}
-                      <td>{{$circle->created_at->format('d-M-Y')}}</td>
-                      <td>{{$circle->updated_at->format('d-M-Y')}}</td>
+                      <td>{{$student->id}}</td>
+                      <td>{{$student->first_name . ' ' . $student->last_name}}</td>
+
 
                       <td>
                         <div class="btn-group">
-                          <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$circle->id}}, this)">
-                            <i class="fas fa-trash"></i>
+                          <button type="button" class="btn btn-warning" onclick="store({{$student->id}}, {{$circleId}})">
+                            <i class="">Submit</i>
                           </button>
-                        </div>
-
-                        <div class="btn-group">
-                          <a href="{{route('circle.edit', $circle->id)}}" class="btn btn-info">
-                            <i class="fas fa-edit"></i>
-                          </a>
-                        </div>
-
-                        <div class="btn-group">
-                          <a href="{{route('add.student.to.circle', $circle->id)}}" class="btn btn-warning">
-                            <i class="fab fa-get-pocket"></i>
-                          </a>
                         </div>
                       </td>
 
                       {{-- THIS IS THE CIRCLE SETTINGS --}}
                       {{-- <td>
                         <div class="btn-group">
-                          <a href="{{route('circle.edit', $circle->id)}}" class="btn btn-info">
+                          <a href="{{route('student.edit', $student->id)}}" class="btn btn-info">
                             <i class="fas fa-edit"></i>
                           </a>
                         </div>
 
                         <div class="btn-group">
-                          <a href="{{route('add.student', $circle->id)}}" class="btn btn-info">
+                          <a href="{{route('add.student', $student->id)}}" class="btn btn-info">
                             <i class="fas fa-address-card"></i>
                           </a>
                         </div>
 
                         <div class="btn-group">
-                          <a href="{{route('add.circle', $circle->id)}}" class="btn btn-success">
+                          <a href="{{route('add.student', $student->id)}}" class="btn btn-success">
                             <i class="fas fa-address-card"></i>
                           </a>
                         </div>
 
                         <div class="btn-group">
-                          <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$circle->id}}, this)">
+                          <button type="button" class="btn btn-danger" onclick="confirmDestroy({{$student->id}}, this)">
                             <i class="fas fa-trash"></i>
                           </button>
                         </div>
@@ -131,49 +110,27 @@
 
 @section('scripts')
     <script>
-      function confirmDestroy(id, refranec) {
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            destroy(id, refranec);
-          }
-        });
-      }
-
-      function destroy (id, refranec) {
-        // circle/admin/teacher/{teacher}
-        axios.delete('/masged/manager/circle/' + id)
+      function store (studentId, circleId) {
+        // alert('Sure');
+        // masged/manager/add-student-to-circle/submit
+        axios.post('/masged/manager/add-student-to-circle/submit/', {
+          studentId: studentId,
+          circleId: circleId
+        })
           .then(function (response) {
             // handle success
             console.log(response);
-            refranec.closest('tr').remove();
-            showDeletingResult(response.data);
+            toastr.success(response.data.message);
+            // document.getElementById('create-form').reset();
           })
           .catch(function (error) {
             // handle error
             console.log(error);
-            showDeletingResult(error.response.data);
+            toastr.error(error.response.data.message)
           })
           .then(function () {
             // always executed
           });
-      }
-
-      function showDeletingResult (data) {
-        Swal.fire({
-          icon: data.icon,
-          title: data.title,
-          text: data.text,
-          showConfirmButton: false,
-          timer: 2000
-        });
       }
     </script>
 @endsection

@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\StudentMarkController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherCourseController;
+use App\Models\Circle;
 use App\Models\TeacherCourse;
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +80,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('/circle-brows/{circleId}/circle/{studentId}', [QuranController::class, 'returnStuedntDetaislWithCircle'])->name('spacific.student.in.circle');
     // Route::post('/circle-brows/{id}/circle/{id}/student', [QuranController::class, 'addQuran']);
     Route::post('/circle-brows/circle/add', [QuranController::class, 'addQuran']);
+
+    Route::get('/add-student-to-circle/{id}/circle/', [CircleController::class, 'addStudentToCircle'])->name('add.student.to.circle');
+    Route::post('/add-student-to-circle/submit', [CircleController::class, 'addSpacificStudentToCircle']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

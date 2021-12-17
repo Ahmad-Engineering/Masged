@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Circle;
 use App\Models\Masged;
+use App\Models\Student;
 use Dotenv\Validator;
 use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
@@ -201,6 +202,49 @@ class CircleController extends Controller
                 'message' => $validator->getMessageBag()->first()
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function addStudentToCircle ($id) {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $students = Student::where('masged_name', $masged->name)
+        ->doesnthave('circle')
+        ->get();
+
+        return response()->view('admin.circle.display-to-add', [
+            'circleId' => $id,
+            'students' => $students
+        ]);
+    }
+
+    public function addSpacificStudentToCircle (Request $request) {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $student = Student::where('id', $request->studentId)
+        ->doesnthave('circle')
+        ->where('masged_name', $masged->name)
+        ->first();
+
+        $student->circle_id = $request->circleId;
+
+        $isUpdated = $student->save();
+
+        if ($isUpdated) {
+            return response()->json([
+                'message' => $student->first_name . ' ' . $student->last_name . ' added to circle successfully.',
+            ], Response::HTTP_OK);
+        }else {
+            return response()->json([
+                'message' => 'Failed to the student to circle',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     /**
