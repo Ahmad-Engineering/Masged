@@ -42,7 +42,6 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
 
     // Route::get('/student-number', [StudentController::class, 'studentNumbers'])->name('student.no');
 
-
     Route::resource('/teacher', TeacherController::class);
     Route::resource('/masged', MasgedController::class);
     Route::resource('/student', StudentController::class);
@@ -77,6 +76,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('/student-marks/show/{course_id}/course', [MarkController::class, 'showMarks'])->name('show.student.marks.in.course');
 
     Route::get('/circle-brows/{id}/circle', [QuranController::class, 'getCircle'])->name('spacific.circle');
+    Route::get('/circle-brows/{circleId}/circle/{studentId}', [QuranController::class, 'returnStuedntDetaislWithCircle'])->name('spacific.student.in.circle');
+    // Route::post('/circle-brows/{id}/circle/{id}/student', [QuranController::class, 'addQuran']);
+    Route::post('/circle-brows/circle/add', [QuranController::class, 'addQuran']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

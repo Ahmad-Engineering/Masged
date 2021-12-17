@@ -31,7 +31,7 @@ class CreateStudentsTable extends Migration
             // SET PROPERTY
             $table->foreign('masged_name')->on('masgeds')->references('name');
 
-            $table->foreignId('circle_id');
+            $table->foreignId('circle_id')->nullable();
             $table->foreign('circle_id')->on('circles')->references('id');
 
             $table->timestamps();

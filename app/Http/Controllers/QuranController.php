@@ -6,7 +6,9 @@ use App\Models\Circle;
 use App\Models\Masged;
 use App\Models\Quran;
 use App\Models\Student;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class QuranController extends Controller
 {
@@ -44,7 +46,80 @@ class QuranController extends Controller
             return redirect()->route('admin.parent');
 
         $students = Student::where('circle_id', $circleId)->get();
-        dd($students);
+        return response()->view('admin.quran.student-circle', [
+            'students' => $students,
+            'circleId' => $circleId
+        ]);
+    }
+
+    public function returnStuedntDetaislWithCircle ($circleId, $studentId) {
+        $count = Masged::where('manager_id', auth()->user()->id)
+        ->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+        
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        
+        $count = Student::where('id', $studentId)
+        ->where('masged_name', $masged->name)
+        ->count();
+        if ($count == 0) 
+            return redirect()->route('admin.parent');
+        
+        $student = Student::where('id', $studentId)
+        ->where('masged_name', $masged->name)
+        ->first();
+
+        $count = Circle::where('id', $circleId)
+        ->where('masged_id', $masged->id)
+        ->count();
+        if ($count == 0) 
+            return redirect()->route('admin.parent');
+        
+        $circle = Circle::where('id', $circleId)
+        ->where('masged_id', $masged->id)
+        ->first();
+
+        return response()->view('admin.quran.create', [
+            'student' => $student,
+            'circle' => $circle,
+        ]);
+    }
+
+    public function addQuran (Request $request) {
+
+        $validator = Validator($request->all(), [
+            'part_no' => 'required|integer|min:1|max:30',
+            'from_page' => 'required|integer|min:1|max:604',
+            'to_page' => 'required|integer|min:1|max:604',
+        ]);
+
+        if (!$validator->fails()) {
+            $quran = new Quran();
+            $quran->part_no = $request->part_no;
+            $quran->from_page = $request->from_page;
+            $quran->to_page = $request->to_page;
+            $quran->circle_id = $request->circleId;
+            $quran->student_id = $request->studentId;
+    
+            $isCreated = $quran->save();
+    
+            if ($isCreated) {
+                return response()->json([
+                    'message' => 'Added successfully',
+                ], Response::HTTP_OK); 
+
+            }else {
+                return response()->json([
+                    'message' => 'Failed to add the info',
+                ], Response::HTTP_BAD_REQUEST); 
+            }
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     /**
