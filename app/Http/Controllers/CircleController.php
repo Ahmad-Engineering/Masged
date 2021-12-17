@@ -6,7 +6,6 @@ use App\Models\Circle;
 use App\Models\Masged;
 use App\Models\Student;
 use Dotenv\Validator;
-use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -259,8 +258,45 @@ class CircleController extends Controller
         ->get();
 
         return response()->view('admin.circle.student-circle', [
-            'students' =>$students
+            'students' => $students,
+            'circleId' => $id
         ]);
+    }
+
+    public function removeStudentFromCircle (Request $request) {
+        $count = Masged::where('manager_id', auth()->user()->id)->count();
+        if ($count == 0)
+            return redirect()->route('admin.parent');
+
+        $masged = Masged::where('manager_id', auth()->user()->id)->first();
+        $count = Student::where('masged_name', $masged->name)
+        ->where('circle_id', $request->circleId)
+        ->count();
+
+        if ($count == 0) {
+            // IS THE STUDENT IN THIS CIRCLE
+            return response()->json([
+                'message' => 'The student does not exist in this circle'
+            ], Response::HTTP_BAD_REQUEST);
+        }else {
+
+            $student = Student::where('masged_name', $masged->name)
+            ->where('circle_id', $request->circleId)->first();
+
+            $student->circle_id = null;
+            $isRemoved = $student->save();
+
+            if ($isRemoved) {
+                return response()->json([
+                    'message' => 'Student removed from circle successfully'
+                ], Response::HTTP_OK);
+            }else {
+                return response()->json([
+                    'message' => 'Failed to remove the student from the circle'
+                ], Response::HTTP_OK);
+            }
+        }
+
     }
 
     /**

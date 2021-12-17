@@ -54,14 +54,13 @@
                       <td>{{$student->id}}</td>
                       <td>{{$student->first_name . ' ' . $student->last_name}}</td>
 
-
-                      {{-- <td>
+                      <td>
                         <div class="btn-group">
-                          <button type="button" class="btn btn-warning" onclick="store({{$student->id}}, {{$circleId}})">
-                            <i class="">Submit</i>
+                          <button type="button" class="btn btn-danger" onclick="remove({{$circleId}}, {{$student->id}})">
+                            <i class="">Remove</i>
                           </button>
                         </div>
-                      </td> --}}
+                      </td>
 
                       {{-- THIS IS THE CIRCLE SETTINGS --}}
                       {{-- <td>
@@ -106,4 +105,31 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+
+
+@section('scripts')
+    <script>
+      // /show-student-circle/remove
+      function remove (circleId, studentId) {
+        // alert('Sure');
+        axios.post('/masged/manager/show-student-circle/remove/', {
+          circleId: circleId,
+          studentId: studentId
+        })
+          .then(function (response) {
+            // handle success
+            console.log(response);
+            toastr.success(response.data.message);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+            toastr.error(error.response.data.message)
+          })
+          .then(function () {
+            // always executed
+          });
+      }
+    </script>
 @endsection
