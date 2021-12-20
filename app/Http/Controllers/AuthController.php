@@ -57,7 +57,15 @@ class AuthController extends Controller
     }
 
     public function updatePassword (Request $request) {
-        $guard = auth('manager')->check() ? 'manager' : 'user';
+        // $guard = auth('manager')->check() ? 'manager' : 'user';
+
+        if (auth('manager')->check()) {
+            $guard = 'manager';
+        }else if (auth('teacher')->check()) {
+            $guard = 'teacher';
+        }else {
+            $guard = 'student';
+        }
 
         $validator = Validator($request->all(), [
             'current_password' => "required|string|password:$guard",
@@ -78,7 +86,7 @@ class AuthController extends Controller
         }else {
             return response()->json([
                 'message' => $validator->getMessageBag()->first(),
-            ], Response::HTTP_BAD_GATEWAY);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
