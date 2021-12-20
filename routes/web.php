@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\StudentMarkController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherCourseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,6 +89,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
 
     Route::get('/edit-password', [AuthController::class, 'editPassword'])->name('edit.password');
     Route::put('/edit-password', [AuthController::class, 'updatePassword']);
+
+    Route::get('/edit-profile', [AuthController::class, 'editProfile'])->name('edit.profile');
+    Route::put('/edit-profile', [AuthController::class, 'updateAdminProfile']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
