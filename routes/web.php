@@ -12,8 +12,6 @@ use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\StudentMarkController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherCourseController;
-use App\Models\Circle;
-use App\Models\TeacherCourse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +85,9 @@ Route::prefix('masged/manager/')->middleware('auth:manager')->group(function () 
     Route::get('/show-student-circle/{id}/circle', [CircleController::class, 'showStudentCircle'])->name('show.student.circle');
     Route::post('/show-student-circle/remove', [CircleController::class, 'removeStudentFromCircle']);
     Route::get('/show-keeps', [CircleController::class, 'showKeeps'])->name('show.keeps');
+
+    Route::get('/edit-password', [AuthController::class, 'editPassword'])->name('edit.password');
+    Route::put('/edit-password', [AuthController::class, 'updatePassword']);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

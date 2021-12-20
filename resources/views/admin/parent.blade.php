@@ -383,6 +383,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </ul>
               </li>
               <li class="nav-header">Settings</li>
+              <li class="nav-item">
+                <a href="{{route('edit.password')}}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Change Password</p>
+                </a>
+              </li>
               <li>
                 <a href="{{route('logout')}}" class="nav-link" style="color: #fff;">
                   <i class="nav-icon fas fa-sign-out-alt"></i>

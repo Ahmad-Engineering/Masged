@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Masged;
 use Dotenv\Validator;
+use Illuminate\Auth\Access\Response as AccessResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 // use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -47,6 +49,36 @@ class AuthController extends Controller
             return response()->json([
                 'message' => $validator->getMessageBag()->first(),
             ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function editPassword ()  {
+        return response()->view('admin.auth.change-password');
+    }
+
+    public function updatePassword (Request $request) {
+        $guard = auth('manager')->check() ? 'manager' : 'user';
+
+        $validator = Validator($request->all(), [
+            'current_password' => "required|string|password:$guard",
+            'new_password' => 'required|string|min:8|max:30|confirmed'
+        ]);
+
+        if (!$validator->fails()) {
+
+            $user = auth($guard)->user();
+
+            $user->password = Hash::make($request->get('new_password'));
+            $isUpdated = $user->save();
+
+            return response()->json([
+                'message' => $isUpdated ? 'Password updated successfully' : 'Failed to update password',
+            ], $isUpdated ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+
+        }else {
+            return response()->json([
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_GATEWAY);
         }
     }
 
